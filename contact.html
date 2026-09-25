@@ -16,9 +16,14 @@
   <a class="nav-logo" href="index.html"><img src="logo.png" alt="BETTHER"></a>
   <nav class="nav-links">
     <a href="index.html">Accueil</a>
-    <a href="construction-neuve.html">Construction neuve</a>
-    <a href="renovation.html">Rénovation</a>
-    <a href="fluides.html">Fluides</a>
+    <div class="nav-drop">
+      <button class="nav-drop-t" type="button" aria-expanded="false">Nos prestations<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+      <div class="nav-drop-m">
+        <a href="construction-neuve.html">Construction neuve</a>
+        <a href="renovation.html">Rénovation</a>
+        <a href="fluides.html">Fluides</a>
+      </div>
+    </div>
     <a href="realisations.html">Réalisations</a>
     <a href="contact.html" class="on">Contact</a>
   </nav>
@@ -28,19 +33,19 @@
 <section class="phero thermbg" id="devis"><div class="wrap">
   <span class="eyebrow">Contact · Devis gratuit</span>
   <h1>Parlons de votre projet.</h1>
-  <p class="lead">Une question, une étude, un devis ? Écrivez-nous — nous revenons vers vous sous <b>24 h</b>, avec une réponse claire. Devis gratuit et sans engagement.</p>
+  <p class="lead">Une question, une étude, un devis ? Écrivez-nous, nous revenons vers vous sous <b>24 h</b>, avec une réponse claire. Devis gratuit et sans engagement.</p>
 </div></section>
 
-<section class="sec gridbg"><div class="wrap cgrid">
+<section class="sec tone-light thermbg-light"><div class="wrap cgrid">
   <div>
     <span class="eyebrow">Coordonnées</span>
-    <h2 style="margin-top:12px">BETTHER</h2>
-    <p class="sub">Bureau d'étude thermique — bases principales à Reims &amp; Paris, déplacements possibles.</p>
+    <img src="logo.png" alt="BETTHER" class="cinfo-logo">
+    <p class="sub">Bureau d'étude thermique et fluides, bases principales à Reims &amp; Paris, déplacements possibles.</p>
     <ul class="cinfo">
       <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5c0 8.3 6.7 15 15 15 .9 0 1.7-.7 1.8-1.6l.2-2.1a1.5 1.5 0 0 0-1-1.6l-3-1a1.5 1.5 0 0 0-1.6.4l-.9 1a12 12 0 0 1-4.9-4.9l1-.9a1.5 1.5 0 0 0 .4-1.6l-1-3a1.5 1.5 0 0 0-1.6-1L4.6 3.2A1.8 1.8 0 0 0 3 5Z"/></svg></span><div><div class="l">Téléphone</div><a class="v" href="tel:+33618137645">06 18 13 76 45</a></div></li>
       <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><div><div class="l">Email</div><a class="v" href="mailto:lili.brendle@betther.tech">lili.brendle@betther.tech</a></div></li>
-      <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><div class="l">Zone d'intervention</div><span class="v">Reims, Paris &amp; alentours</span></div></li>
       <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><div class="l">Disponibilité</div><span class="v">Réponse sous 24 h · devis gratuit</span></div></li>
+      <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><div class="l">Zone d'intervention</div><span class="v">Reims, Paris, Strasbourg, Colmar, Besançon, Lons-le-Saunier, Fontainebleau, Gap, Marseille — et alentours</span></div></li>
     </ul>
   </div>
   <form class="form" id="ccForm">
@@ -48,14 +53,14 @@
     <p style="color:var(--ink-soft);font-size:14px;margin-top:6px">Décrivez votre projet, nous revenons vers vous sous 24 h.</p>
     <label for="n">Nom</label><input id="n" type="text" placeholder="Votre nom">
     <label for="t">Téléphone</label><input id="t" type="tel" placeholder="06 00 00 00 00">
-    <label for="e">Email</label><input id="e" type="email" placeholder="vous@email.com">
-    <label for="m">Votre projet</label><textarea id="m" placeholder="Type de bâtiment, surface, neuf ou rénovation, échéance…"></textarea>
+    <label for="e">Email (facultatif)</label><input id="e" type="email" placeholder="vous@email.com">
+    <label for="m">Votre message</label><textarea id="m" placeholder="Type de bâtiment, surface, neuf ou rénovation, échéance…"></textarea>
     <button class="btn btn-accent" type="submit">Envoyer ma demande <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
   </form>
 </div></section>
 
 <footer><div class="wrap">
-  <div class="foot-in"><span class="foot-slogan">Le BET THERmique d'un monde better</span><span>Bases principales : Reims &amp; Paris · 06 18 13 76 45</span><span>© 2026 BETTHER</span></div>
+  <div class="foot-in"><span class="foot-slogan">Le BET THERmique d'un monde better</span><span>Bases principales : Reims et Grand Est · 06 18 13 76 45</span><span>© 2026 BETTHER</span></div>
   <div class="foot-legal"><a href="index.html#legal-mentions">Mentions légales</a><a href="index.html#legal-cgv">CGV</a><a href="index.html#legal-confidentialite">Confidentialité</a></div>
 </div></footer>
 <script>
@@ -70,6 +75,22 @@
         +'\nEmail : '+(v('e')||'-')
         +'\nProjet : '+(v('m')||'-');
       window.location.href='mailto:lili.brendle@betther.tech?subject='+encodeURIComponent('Demande via le site — '+(v('n')||''))+'&body='+encodeURIComponent(body);
+    });
+  })();
+</script>
+<script>
+  (function(){
+    var d=document.querySelector('.nav-drop'); if(!d) return;
+    var t=d.querySelector('.nav-drop-t'); if(!t) return;
+    t.addEventListener('click',function(){
+      var open=d.classList.toggle('is-open');
+      t.setAttribute('aria-expanded',open?'true':'false');
+    });
+    document.addEventListener('click',function(e){
+      if(!d.contains(e.target)){d.classList.remove('is-open');t.setAttribute('aria-expanded','false');}
+    });
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape'){d.classList.remove('is-open');t.setAttribute('aria-expanded','false');}
     });
   })();
 </script>

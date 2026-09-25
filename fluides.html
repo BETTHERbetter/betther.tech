@@ -16,9 +16,14 @@
   <a class="nav-logo" href="index.html"><img src="logo.png" alt="BETTHER"></a>
   <nav class="nav-links">
     <a href="index.html">Accueil</a>
-    <a href="construction-neuve.html">Construction neuve</a>
-    <a href="renovation.html">Rénovation</a>
-    <a href="fluides.html" class="on">Fluides</a>
+    <div class="nav-drop">
+      <button class="nav-drop-t on" type="button" aria-expanded="false">Nos prestations<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+      <div class="nav-drop-m">
+        <a href="construction-neuve.html">Construction neuve</a>
+        <a href="renovation.html">Rénovation</a>
+        <a href="fluides.html" class="on">Fluides</a>
+      </div>
+    </div>
     <a href="realisations.html">Réalisations</a>
     <a href="contact.html">Contact</a>
   </nav>
@@ -29,10 +34,6 @@
   <span class="eyebrow">Ingénierie fluides · CVC &amp; plomberie</span>
   <h1>Dimensionner des installations performantes.</h1>
   <p class="lead">Chauffage, pompe à chaleur, climatisation, ventilation, eau chaude sanitaire, plomberie : BETTHER dimensionne l'ensemble des <b>fluides</b> de votre bâtiment et produit les plans et schémas nécessaires à la mise en œuvre.</p>
-  <div class="cta">
-    <a class="btn btn-accent" href="index.html#devis">Estimer mon devis <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    <a class="btn btn-ghost" href="#inclus">Ce qui est compris</a>
-  </div>
 </div></section>
 
 <section class="sec gridbg" id="inclus"><div class="wrap">
@@ -52,12 +53,11 @@
   <div>
     <span class="eyebrow">Pour qui</span>
     <h2>Neuf, rénovation, tertiaire.</h2>
-    <p class="sub">Que vous soyez particulier, architecte, maître d'œuvre ou entreprise, nous adaptons le niveau de détail à votre projet — d'un simple dimensionnement de PAC à une étude fluides complète avec plans d'exécution.</p>
+    <p class="sub">Que vous soyez particulier, architecte, maître d'œuvre ou entreprise, nous adaptons le niveau de détail à votre projet, d'un simple dimensionnement de PAC à une étude fluides complète avec plans d'exécution.</p>
   </div>
   <div class="panel">
     <h3>Un dimensionnement, pas une estimation</h3>
     <p>Un système surdimensionné coûte cher et fonctionne mal ; sous-dimensionné, il ne tient pas la charge. Nos calculs partent des besoins réels du bâtiment pour choisir la juste puissance et les bons équipements.</p>
-    <div class="tags"><span>Chauffage</span><span>PAC air/eau</span><span>VMC</span><span>Climatisation</span><span>Plomberie</span></div>
   </div>
 </div></section>
 
@@ -68,8 +68,24 @@
 </div></div></section>
 
 <footer><div class="wrap">
-  <div class="foot-in"><span class="foot-slogan">Le BET THERmique d'un monde better</span><span>Bases principales : Reims &amp; Paris · 06 18 13 76 45</span><span>© 2026 BETTHER</span></div>
+  <div class="foot-in"><span class="foot-slogan">Le BET THERmique d'un monde better</span><span>Bases principales : Reims et Grand Est · 06 18 13 76 45</span><span>© 2026 BETTHER</span></div>
   <div class="foot-legal"><a href="index.html#legal-mentions">Mentions légales</a><a href="index.html#legal-cgv">CGV</a><a href="index.html#legal-confidentialite">Confidentialité</a></div>
 </div></footer>
+<script>
+  (function(){
+    var d=document.querySelector('.nav-drop'); if(!d) return;
+    var t=d.querySelector('.nav-drop-t'); if(!t) return;
+    t.addEventListener('click',function(){
+      var open=d.classList.toggle('is-open');
+      t.setAttribute('aria-expanded',open?'true':'false');
+    });
+    document.addEventListener('click',function(e){
+      if(!d.contains(e.target)){d.classList.remove('is-open');t.setAttribute('aria-expanded','false');}
+    });
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape'){d.classList.remove('is-open');t.setAttribute('aria-expanded','false');}
+    });
+  })();
+</script>
 </body>
 </html>

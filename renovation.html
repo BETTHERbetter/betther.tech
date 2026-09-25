@@ -16,9 +16,14 @@
   <a class="nav-logo" href="index.html"><img src="logo.png" alt="BETTHER"></a>
   <nav class="nav-links">
     <a href="index.html">Accueil</a>
-    <a href="construction-neuve.html">Construction neuve</a>
-    <a href="renovation.html" class="on">Rénovation</a>
-    <a href="fluides.html">Fluides</a>
+    <div class="nav-drop">
+      <button class="nav-drop-t on" type="button" aria-expanded="false">Nos prestations<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+      <div class="nav-drop-m">
+        <a href="construction-neuve.html">Construction neuve</a>
+        <a href="renovation.html" class="on">Rénovation</a>
+        <a href="fluides.html">Fluides</a>
+      </div>
+    </div>
     <a href="realisations.html">Réalisations</a>
     <a href="contact.html">Contact</a>
   </nav>
@@ -29,10 +34,6 @@
   <span class="eyebrow">Rénovation énergétique</span>
   <h1>Identifier les pertes, prioriser les bons travaux.</h1>
   <p class="lead">Murs peu isolés, ventilation absente, chauffage énergivore : un bâtiment existant révèle vite ses faiblesses. BETTHER établit un <b>état des lieux thermique précis</b> et vous guide vers les travaux les plus utiles, dans le bon ordre.</p>
-  <div class="cta">
-    <a class="btn btn-accent" href="index.html#devis">Estimer mon devis <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    <a class="btn btn-ghost" href="#inclus">Ce qui est compris</a>
-  </div>
 </div></section>
 
 <section class="sec gridbg" id="inclus"><div class="wrap">
@@ -49,13 +50,12 @@
 <section class="sec sec--alt"><div class="wrap twocol">
   <div class="panel">
     <h3>Un bâtiment à fort potentiel</h3>
-    <p>La rénovation énergétique ne se résume pas à « tout isoler ». L'enjeu est de repérer les vraies déperditions — toiture, murs, menuiseries, ponts thermiques, ventilation — puis de hiérarchiser les interventions pour un maximum d'effet au meilleur coût.</p>
-    <div class="tags"><span>Déperditions</span><span>Ponts thermiques</span><span>Ventilation</span><span>Isolation</span></div>
+    <p>La rénovation énergétique ne se résume pas à « tout isoler ». L'enjeu est de repérer les vraies déperditions (toiture, murs, menuiseries, ponts thermiques, ventilation) puis de hiérarchiser les interventions pour un maximum d'effet au meilleur coût.</p>
   </div>
   <div>
     <span class="eyebrow">Notre méthode</span>
     <h2>De l'état des lieux au plan d'action.</h2>
-    <p class="sub">Nous partons de votre bâtiment réel (plans, photos, factures, DPE éventuel), nous calculons ses besoins, puis nous vous remettons un rapport clair : ce qui coûte de l'énergie, et par quoi commencer.</p>
+    <p class="sub">Nous partons de votre bâtiment tel qu'il est : plans, photos, factures, et votre DPE si vous en avez un. Nous calculons ses besoins réels, puis nous vous expliquons où part l'énergie et quels travaux engager en premier.</p>
   </div>
 </div></section>
 
@@ -66,8 +66,24 @@
 </div></div></section>
 
 <footer><div class="wrap">
-  <div class="foot-in"><span class="foot-slogan">Le BET THERmique d'un monde better</span><span>Bases principales : Reims &amp; Paris · 06 18 13 76 45</span><span>© 2026 BETTHER</span></div>
+  <div class="foot-in"><span class="foot-slogan">Le BET THERmique d'un monde better</span><span>Bases principales : Reims et Grand Est · 06 18 13 76 45</span><span>© 2026 BETTHER</span></div>
   <div class="foot-legal"><a href="index.html#legal-mentions">Mentions légales</a><a href="index.html#legal-cgv">CGV</a><a href="index.html#legal-confidentialite">Confidentialité</a></div>
 </div></footer>
+<script>
+  (function(){
+    var d=document.querySelector('.nav-drop'); if(!d) return;
+    var t=d.querySelector('.nav-drop-t'); if(!t) return;
+    t.addEventListener('click',function(){
+      var open=d.classList.toggle('is-open');
+      t.setAttribute('aria-expanded',open?'true':'false');
+    });
+    document.addEventListener('click',function(e){
+      if(!d.contains(e.target)){d.classList.remove('is-open');t.setAttribute('aria-expanded','false');}
+    });
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape'){d.classList.remove('is-open');t.setAttribute('aria-expanded','false');}
+    });
+  })();
+</script>
 </body>
 </html>

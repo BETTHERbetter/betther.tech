@@ -16,9 +16,14 @@
   <a class="nav-logo" href="index.html"><img src="logo.png" alt="BETTHER"></a>
   <nav class="nav-links">
     <a href="index.html">Accueil</a>
-    <a href="construction-neuve.html" class="on">Construction neuve</a>
-    <a href="renovation.html">Rénovation</a>
-    <a href="fluides.html">Fluides</a>
+    <div class="nav-drop">
+      <button class="nav-drop-t on" type="button" aria-expanded="false">Nos prestations<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+      <div class="nav-drop-m">
+        <a href="construction-neuve.html" class="on">Construction neuve</a>
+        <a href="renovation.html">Rénovation</a>
+        <a href="fluides.html">Fluides</a>
+      </div>
+    </div>
     <a href="realisations.html">Réalisations</a>
     <a href="contact.html">Contact</a>
   </nav>
@@ -28,11 +33,7 @@
 <section class="phero thermbg"><div class="wrap">
   <span class="eyebrow">Construction neuve · RE2020</span>
   <h1>Étude thermique RE2020 pour votre construction neuve.</h1>
-  <p class="lead">Depuis 2022, toute construction neuve doit respecter la <b>Réglementation Environnementale 2020</b>. BETTHER réalise votre étude thermique complète — de la conception au dépôt du permis de construire, jusqu'à l'attestation de fin de travaux.</p>
-  <div class="cta">
-    <a class="btn btn-accent" href="index.html#devis">Estimer mon devis <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    <a class="btn btn-ghost" href="#inclus">Ce qui est compris</a>
-  </div>
+  <p class="lead">Depuis 2022, toute construction neuve doit respecter la <b>Réglementation Environnementale 2020</b>. BETTHER réalise votre étude thermique complète, de la conception au dépôt du permis de construire, jusqu'à l'attestation de fin de travaux.</p>
 </div></section>
 
 <section class="sec gridbg" id="inclus"><div class="wrap">
@@ -77,8 +78,24 @@
 </div></div></section>
 
 <footer><div class="wrap">
-  <div class="foot-in"><span class="foot-slogan">Le BET THERmique d'un monde better</span><span>Bases principales : Reims &amp; Paris · 06 18 13 76 45</span><span>© 2026 BETTHER</span></div>
+  <div class="foot-in"><span class="foot-slogan">Le BET THERmique d'un monde better</span><span>Bases principales : Reims et Grand Est · 06 18 13 76 45</span><span>© 2026 BETTHER</span></div>
   <div class="foot-legal"><a href="index.html#legal-mentions">Mentions légales</a><a href="index.html#legal-cgv">CGV</a><a href="index.html#legal-confidentialite">Confidentialité</a></div>
 </div></footer>
+<script>
+  (function(){
+    var d=document.querySelector('.nav-drop'); if(!d) return;
+    var t=d.querySelector('.nav-drop-t'); if(!t) return;
+    t.addEventListener('click',function(){
+      var open=d.classList.toggle('is-open');
+      t.setAttribute('aria-expanded',open?'true':'false');
+    });
+    document.addEventListener('click',function(e){
+      if(!d.contains(e.target)){d.classList.remove('is-open');t.setAttribute('aria-expanded','false');}
+    });
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape'){d.classList.remove('is-open');t.setAttribute('aria-expanded','false');}
+    });
+  })();
+</script>
 </body>
 </html>
