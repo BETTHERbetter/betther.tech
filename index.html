@@ -503,6 +503,12 @@
   .missions .sec-head{max-width:840px}
   .missions .sec-head h2 em{font-style:normal;color:var(--accent-ink)}
   .missions .sec-head .sub{max-width:56ch}
+  .miss-bio{position:relative;display:flex;align-items:center;justify-content:space-between;gap:18px 28px;flex-wrap:wrap;margin-top:22px;padding:20px 26px;border-radius:20px;border:1px solid color-mix(in srgb,rgb(255,106,51) 24%,var(--line));background:linear-gradient(90deg,color-mix(in srgb,rgb(255,106,51) 7%,var(--surface)),var(--surface));color:var(--ink-soft);text-decoration:none;font-size:15px;transition:border-color .25s ease,transform .25s ease}
+  .miss-bio:hover{border-color:color-mix(in srgb,rgb(255,106,51) 50%,var(--line));transform:translateY(-3px)}
+  .miss-bio b{color:var(--ink);font-weight:600}
+  .miss-bio .mb-txt{flex:1 1 420px}
+  .miss-bio .mb-go{display:inline-flex;align-items:center;gap:8px;color:var(--accent-ink);font-weight:600;white-space:nowrap}
+  .miss-bio .mb-go svg{width:16px;height:16px}
   .miss-groups{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:clamp(40px,5vw,62px)}
   .mc-cover{position:absolute;inset:0;z-index:3;border-radius:20px}
   .mcard:has(.mc-cover){cursor:pointer}
@@ -905,6 +911,7 @@
           <a href="construction-neuve.html">Construction neuve</a>
           <a href="renovation.html">Rénovation</a>
           <a href="fluides.html">Fluides</a>
+        <a href="construire-biosource.html">Construire en biosourcé</a>
         </div>
       </div>
       <a href="realisations.html">Réalisations</a>
@@ -942,8 +949,8 @@
 <!-- ===== STORY ===== -->
 <div class="strip" aria-hidden="true">
   <div class="strip-track">
-    <span>RE2020</span><span>Calcul Bbio</span><span>Calcul Cep</span><span>Étude de ventilation</span><span>Audit énergétique</span><span>Bilan thermique</span><span>Analyse du cycle de vie</span><span>Dimensionnement des fluides</span><span>Solaire thermique</span><span>Pompe à chaleur</span>
-    <span>RE2020</span><span>Calcul Bbio</span><span>Calcul Cep</span><span>Étude de ventilation</span><span>Audit énergétique</span><span>Bilan thermique</span><span>Analyse du cycle de vie</span><span>Dimensionnement des fluides</span><span>Solaire thermique</span><span>Pompe à chaleur</span>
+    <span>RE2020</span><span>Calcul Bbio</span><span>Calcul Cep</span><span>Étude de ventilation</span><span>Audit énergétique</span><span>Bilan thermique</span><span>Analyse du cycle de vie</span><span>Matériaux biosourcés</span><span>Dimensionnement des fluides</span><span>Solaire thermique</span><span>Pompe à chaleur</span>
+    <span>RE2020</span><span>Calcul Bbio</span><span>Calcul Cep</span><span>Étude de ventilation</span><span>Audit énergétique</span><span>Bilan thermique</span><span>Analyse du cycle de vie</span><span>Matériaux biosourcés</span><span>Dimensionnement des fluides</span><span>Solaire thermique</span><span>Pompe à chaleur</span>
   </div>
 </div>
 
@@ -1331,6 +1338,10 @@
       </article>
 
     </div>
+    <a class="miss-bio" href="construire-biosource.html">
+      <span class="mb-txt"><b>Vous construisez en chanvre ou en bois ?</b> Nous intégrons vos matériaux biosourcés dans l’étude RE2020 et l’ACV, avec leurs vraies données environnementales.</span>
+      <span class="mb-go">Construire en biosourcé <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
   </div>
 </section>
 
