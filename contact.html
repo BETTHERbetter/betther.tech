@@ -62,6 +62,7 @@
     <label for="e">Email (facultatif)</label><input id="e" type="email" placeholder="vous@email.com">
     <label for="m">Votre message</label><textarea id="m" placeholder="Type de bâtiment, surface, neuf ou rénovation, échéance…"></textarea>
     <button class="btn btn-accent" type="submit">Envoyer ma demande <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <p id="ccMsgOut" hidden style="margin-top:14px;font-size:14px"></p>
   </form>
 </div></section>
 
@@ -73,6 +74,15 @@
   (function(){
     var f=document.getElementById('ccForm'); if(!f) return;
     function v(id){var e=document.getElementById(id);return e?e.value.trim():'';}
+    /* Envoi de la demande par Web3Forms (le site est statique : aucun serveur a nous).
+       La cle est publique par conception. Retourne une promesse true/false. */
+    function envoyerDemande(sujet,corps,email,nom){
+      var data={access_key:'1c229693-4a09-4e35-87ca-0337d5224fef',subject:sujet,from_name:'Site betther.tech',name:nom||'Visiteur',message:corps};
+      if(email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) data.email=email;
+      return fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
+        .then(function(r){return r.json();}).then(function(j){return !!(j&&j.success);})
+        .catch(function(){return false;});
+    }
     f.addEventListener('submit',function(e){
       e.preventDefault();
       var body='Bonjour BETTHER,'
@@ -80,7 +90,15 @@
         +'\nTel : '+(v('t')||'-')
         +'\nEmail : '+(v('e')||'-')
         +'\nProjet : '+(v('m')||'-');
-      window.location.href='mailto:lili.brendle@betther.tech?subject='+encodeURIComponent('Demande via le site — '+(v('n')||''))+'&body='+encodeURIComponent(body);
+      if(!v('n')){ document.getElementById('n').focus(); return; }
+      if(!v('t') && !v('e')){ document.getElementById('t').focus(); return; }
+      var btn=f.querySelector('button[type=submit]'), out=document.getElementById('ccMsgOut');
+      btn.disabled=true; out.hidden=true;
+      envoyerDemande('Demande via le site — '+v('n'),body,v('e'),v('n')).then(function(ok){
+        btn.disabled=false; out.hidden=false;
+        if(ok){ out.style.color=''; out.innerHTML='<b>Message envoyé.</b> Merci, nous revenons vers vous sous 24 h.'; f.reset(); }
+        else { out.style.color='#ff8a5c'; out.innerHTML='L\'envoi n\'a pas abouti. Réessayez, ou écrivez à <a href="mailto:lili.brendle@betther.tech">lili.brendle@betther.tech</a>, ou appelez le 06 18 13 76 45.'; }
+      });
     });
   })();
 </script>
