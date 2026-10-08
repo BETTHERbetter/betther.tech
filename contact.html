@@ -58,7 +58,7 @@
     <div style="font-family:var(--font-display);font-size:22px">Demander un devis</div>
     <p style="color:var(--ink-soft);font-size:14px;margin-top:6px">Décrivez votre projet, nous revenons vers vous sous 24 h.</p>
     <label for="n">Nom</label><input id="n" type="text" placeholder="Votre nom">
-    <label for="t">Téléphone (facultatif)</label><input id="t" type="tel" placeholder="06 12 34 56 78">
+    <label for="t">Téléphone</label><input id="t" type="tel" required inputmode="tel" placeholder="06 12 34 56 78">
     <label for="e">Email</label><input id="e" type="email" required placeholder="vous@email.com">
     <label for="m">Votre message</label><textarea id="m" placeholder="Type de bâtiment, surface, neuf ou rénovation, échéance…"></textarea>
     <button class="btn btn-accent" type="submit">Envoyer ma demande <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
@@ -95,7 +95,7 @@
       function stop(id,txt){ out.hidden=false; out.style.color='#ff8a5c'; out.textContent=txt; document.getElementById(id).focus(); }
       if(!v('n')){ return stop('n','Merci d\u2019indiquer votre nom.'); }
       if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('e'))){ return stop('e','Merci d\u2019indiquer une adresse e-mail valide : c\u2019est par l\u00e0 que nous vous r\u00e9pondons.'); }
-      if(v('t') && !telOk(v('t'))){ return stop('t','Ce num\u00e9ro semble incomplet : 10 chiffres attendus, par exemple 06 12 34 56 78.'); }
+      if(!telOk(v('t'))){ return stop('t','Merci d\u2019indiquer un num\u00e9ro de t\u00e9l\u00e9phone \u00e0 10 chiffres, par exemple 06 12 34 56 78.'); }
       var btn=f.querySelector('button[type=submit]');
       btn.disabled=true; out.hidden=true;
       envoyerDemande('Demande via le site — '+v('n'),body,v('e'),v('n')).then(function(ok){

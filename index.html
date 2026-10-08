@@ -1111,8 +1111,9 @@
         <div class="wiz-fields">
           <div class="field"><label for="wizPrenom">Prénom</label><input id="wizPrenom" type="text" placeholder="Votre prénom" autocomplete="given-name"></div>
           <div class="field"><label for="wizNom">Nom</label><input id="wizNom" type="text" placeholder="Votre nom" autocomplete="family-name"></div>
-          <div class="field"><label for="wizTel">Téléphone</label><input id="wizTel" type="tel" placeholder="06 00 00 00 00" autocomplete="tel"></div>
+          <div class="field"><label for="wizTel">Téléphone</label><input id="wizTel" type="tel" inputmode="tel" placeholder="06 12 34 56 78" autocomplete="tel"></div>
           <div class="field"><label for="wizEmail">Email</label><input id="wizEmail" type="email" placeholder="vous@email.com" autocomplete="email"></div>
+          <p class="field-full wiz-hint" id="wizTelErr" hidden style="color:#ff8a5c">Ce numéro semble incomplet&nbsp;: 10 chiffres attendus, par exemple 06 12 34 56 78.</p>
           <div class="field field-full"><label for="wizProfil">Vous êtes</label>
             <select id="wizProfil">
               <option value="Particulier">Particulier</option>
@@ -1369,7 +1370,7 @@
       <div id="ccBody">
         <div class="cc-row">
           <div class="cc-field"><label for="ccNom">Nom</label><input id="ccNom" type="text" autocomplete="name" placeholder="Votre nom"></div>
-          <div class="cc-field"><label for="ccTel">Téléphone <span style="text-transform:none;letter-spacing:0;color:var(--ink-faint)">(facultatif)</span></label><input id="ccTel" type="tel" autocomplete="tel" placeholder="06 12 34 56 78"></div>
+          <div class="cc-field"><label for="ccTel">Téléphone</label><input id="ccTel" type="tel" required inputmode="tel" autocomplete="tel" placeholder="06 12 34 56 78"></div>
         </div>
         <div class="cc-field"><label for="ccEmail">Email</label><input id="ccEmail" type="email" required autocomplete="email" placeholder="vous@email.com"></div>
         <div class="cc-field"><label for="ccMsg">Votre message</label><textarea id="ccMsg" placeholder="Décrivez votre projet en quelques mots…"></textarea></div>
@@ -1917,6 +1918,7 @@
       el.innerHTML='<em>à partir de</em>'+(PROMO>0?('<s>'+p.min.toLocaleString('fr-FR')+'&nbsp;€</s>'):'')+'<b>'+pm.toLocaleString('fr-FR')+'&nbsp;€</b>';
     });
     function val(id){ var el=document.getElementById(id); return el?(el.value||'').trim():''; }
+    function telOk(t){ var d=(t||'').replace(/[^0-9+]/g,'').replace(/^\+33/,'0'); return /^0[1-9][0-9]{8}$/.test(d); }
     function pack(){ return PACKS[answers.pack]||null; }
 
     function coefBatiment(){
@@ -1981,10 +1983,14 @@
       if(cur===4)return !!answers.complexite;
       if(cur===5)return !!answers.niveaux;
       if(cur===6)return !!(val('wizVille')||val('wizCP'));
-      if(cur===8)return !!(val('wizNom')&&val('wizTel'));
+      if(cur===8)return !!(val('wizNom')&&telOk(val('wizTel')));
       return true;
     }
-    function refreshNext(){ nextBtn.classList.toggle('ready',ready()); }
+    function refreshNext(){
+      nextBtn.classList.toggle('ready',ready());
+      var te=document.getElementById('wizTelErr');
+      if(te) te.hidden = !(cur===8 && val('wizTel') && !telOk(val('wizTel')));
+    }
 
     function filterPacks(){
       var opts=wiz.querySelector('.wiz-opts[data-key="pack"]'); if(!opts) return;
@@ -2352,7 +2358,7 @@
       function stop(id,txt){ errBox.hidden=false; errBox.textContent=txt; document.getElementById(id).focus(); }
       if(!nom){ return stop('ccNom','Merci d\u2019indiquer votre nom.'); }
       if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ return stop('ccEmail','Merci d\u2019indiquer une adresse e-mail valide : c\u2019est par l\u00e0 que nous vous r\u00e9pondons.'); }
-      if(tel && !telOk(tel)){ return stop('ccTel','Ce num\u00e9ro semble incomplet : 10 chiffres attendus, par exemple 06 12 34 56 78.'); }
+      if(!telOk(tel)){ return stop('ccTel','Merci d\u2019indiquer un num\u00e9ro de t\u00e9l\u00e9phone \u00e0 10 chiffres, par exemple 06 12 34 56 78.'); }
       var body='Bonjour BETTHER,'
         +'\nNom : '+(nom||'-')
         +'\nTel : '+(tel||'-')
