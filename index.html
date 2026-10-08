@@ -1369,9 +1369,9 @@
       <div id="ccBody">
         <div class="cc-row">
           <div class="cc-field"><label for="ccNom">Nom</label><input id="ccNom" type="text" autocomplete="name" placeholder="Votre nom"></div>
-          <div class="cc-field"><label for="ccTel">Téléphone</label><input id="ccTel" type="tel" autocomplete="tel" placeholder="06 00 00 00 00"></div>
+          <div class="cc-field"><label for="ccTel">Téléphone <span style="text-transform:none;letter-spacing:0;color:var(--ink-faint)">(facultatif)</span></label><input id="ccTel" type="tel" autocomplete="tel" placeholder="06 12 34 56 78"></div>
         </div>
-        <div class="cc-field"><label for="ccEmail">Email <span style="text-transform:none;letter-spacing:0;color:var(--ink-faint)">(facultatif)</span></label><input id="ccEmail" type="email" autocomplete="email" placeholder="vous@email.com"></div>
+        <div class="cc-field"><label for="ccEmail">Email</label><input id="ccEmail" type="email" required autocomplete="email" placeholder="vous@email.com"></div>
         <div class="cc-field"><label for="ccMsg">Votre message</label><textarea id="ccMsg" placeholder="Décrivez votre projet en quelques mots…"></textarea></div>
         <button type="submit" class="btn btn-accent">Envoyer ma demande
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -1427,7 +1427,7 @@
         <h2>Couverture professionnelle</h2>
         <ul>
           <li><b>Assureur :</b> MIC Insurance Company — 29 rue de Bassano, 75008 Paris</li>
-          <li><b>Garanties souscrites :</b> responsabilité civile professionnelle et responsabilité civile décennale (n° de contrat communiqué sur simple demande)</li>
+          <li><b>Garanties souscrites :</b> responsabilité civile professionnelle et responsabilité civile décennale — contrat n° LUNPIB2606668</li>
           <li><b>Couverture géographique :</b> France métropolitaine, Guadeloupe, Martinique, Guyane, La Réunion, Saint-Martin et Saint-Barthélemy</li>
         </ul>
       </section>
@@ -2335,6 +2335,7 @@
     var form=document.getElementById('ccForm');
     if(!form) return;
     function val(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+    function telOk(t){ var d=(t||'').replace(/[^0-9+]/g,'').replace(/^\+33/,'0'); return /^0[1-9][0-9]{8}$/.test(d); }
     /* Envoi de la demande par Web3Forms (le site est statique : aucun serveur a nous).
        La cle est publique par conception. Retourne une promesse true/false. */
     function envoyerDemande(sujet,corps,email,nom){
@@ -2347,12 +2348,15 @@
     form.addEventListener('submit',function(e){
       e.preventDefault();
       var nom=val('ccNom'), tel=val('ccTel'), email=val('ccEmail'), msg=val('ccMsg');
-      if(!nom){ document.getElementById('ccNom').focus(); return; }
-      if(!tel && !email){ document.getElementById('ccTel').focus(); return; }
+      var errBox=document.getElementById('ccErr');
+      function stop(id,txt){ errBox.hidden=false; errBox.textContent=txt; document.getElementById(id).focus(); }
+      if(!nom){ return stop('ccNom','Merci d\u2019indiquer votre nom.'); }
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ return stop('ccEmail','Merci d\u2019indiquer une adresse e-mail valide : c\u2019est par l\u00e0 que nous vous r\u00e9pondons.'); }
+      if(tel && !telOk(tel)){ return stop('ccTel','Ce num\u00e9ro semble incomplet : 10 chiffres attendus, par exemple 06 12 34 56 78.'); }
       var body='Bonjour BETTHER,'
         +'\nNom : '+(nom||'-')
         +'\nTel : '+(tel||'-')
-        +(email?'\nEmail : '+email:'')
+        +'\nEmail : '+email
         +'\nMessage : '+(msg||'-');
       var btn=form.querySelector('button[type=submit]'), err=document.getElementById('ccErr');
       if(err) err.hidden=true; if(btn) btn.disabled=true;
