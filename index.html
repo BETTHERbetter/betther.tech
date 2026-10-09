@@ -1112,8 +1112,9 @@
           <div class="field"><label for="wizPrenom">Prénom</label><input id="wizPrenom" type="text" placeholder="Votre prénom" autocomplete="given-name"></div>
           <div class="field"><label for="wizNom">Nom</label><input id="wizNom" type="text" placeholder="Votre nom" autocomplete="family-name"></div>
           <div class="field"><label for="wizTel">Téléphone</label><input id="wizTel" type="tel" inputmode="tel" placeholder="06 12 34 56 78" autocomplete="tel"></div>
-          <div class="field"><label for="wizEmail">Email</label><input id="wizEmail" type="email" placeholder="vous@email.com" autocomplete="email"></div>
+          <div class="field"><label for="wizEmail">Email</label><input id="wizEmail" type="email" required placeholder="vous@email.com" autocomplete="email"></div>
           <p class="field-full wiz-hint" id="wizTelErr" hidden style="color:#ff8a5c">Ce numéro semble incomplet&nbsp;: 10 chiffres attendus, par exemple 06 12 34 56 78.</p>
+          <p class="field-full wiz-hint" id="wizMailErr" hidden style="color:#ff8a5c">Cette adresse e-mail semble incomplète&nbsp;: c’est par là que nous vous répondons.</p>
           <div class="field field-full"><label for="wizProfil">Vous êtes</label>
             <select id="wizProfil">
               <option value="Particulier">Particulier</option>
@@ -1921,6 +1922,7 @@
     });
     function val(id){ var el=document.getElementById(id); return el?(el.value||'').trim():''; }
     function telOk(t){ var d=(t||'').replace(/[^0-9+]/g,'').replace(/^\+33/,'0'); return /^0[1-9][0-9]{8}$/.test(d); }
+    function mailOk(e){ return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test((e||'').trim()); }
     function pack(){ return PACKS[answers.pack]||null; }
 
     function coefBatiment(){
@@ -1985,13 +1987,15 @@
       if(cur===4)return !!answers.complexite;
       if(cur===5)return !!answers.niveaux;
       if(cur===6)return !!(val('wizVille')||val('wizCP'));
-      if(cur===8)return !!(val('wizNom')&&telOk(val('wizTel')));
+      if(cur===8)return !!(val('wizNom')&&telOk(val('wizTel'))&&mailOk(val('wizEmail')));
       return true;
     }
     function refreshNext(){
       nextBtn.classList.toggle('ready',ready());
       var te=document.getElementById('wizTelErr');
       if(te) te.hidden = !(cur===8 && val('wizTel') && !telOk(val('wizTel')));
+      var me=document.getElementById('wizMailErr');
+      if(me) me.hidden = !(cur===8 && val('wizEmail') && !mailOk(val('wizEmail')));
     }
 
     function filterPacks(){
@@ -2038,7 +2042,7 @@
     });
 
     // inputs → refresh + geocode
-    ['wizNom','wizTel','wizVille','wizCP','wizSurf','wizLgt'].forEach(function(id){var el=document.getElementById(id); if(el) el.addEventListener('input',refreshNext);});
+    ['wizNom','wizTel','wizEmail','wizVille','wizCP','wizSurf','wizLgt'].forEach(function(id){var el=document.getElementById(id); if(el) el.addEventListener('input',refreshNext);});
     // caractéristiques
     var carac=document.getElementById('wizCarac');
     if(carac){ carac.addEventListener('change',function(){
@@ -2344,6 +2348,7 @@
     if(!form) return;
     function val(id){var el=document.getElementById(id);return el?el.value.trim():'';}
     function telOk(t){ var d=(t||'').replace(/[^0-9+]/g,'').replace(/^\+33/,'0'); return /^0[1-9][0-9]{8}$/.test(d); }
+    function mailOk(e){ return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test((e||'').trim()); }
     /* Envoi de la demande par Web3Forms (le site est statique : aucun serveur a nous).
        La cle est publique par conception. Retourne une promesse true/false. */
     function envoyerDemande(sujet,corps,email,nom){
