@@ -1634,10 +1634,12 @@
       <section>
         <div class="pd-kicker">06 — Cookies</div>
         <h2>Aucun traceur</h2>
-        <p>Le site <b>n'utilise aucun cookie</b> de mesure d'audience, de profilage ou de publicité, et n'installe aucun traceur sur votre appareil. Aucune bannière de consentement n'est donc nécessaire.</p>
+        <p>Le site <b>n'utilise aucun cookie</b> de profilage ou de publicité, et n'installe aucun traceur sur votre appareil. Aucune bannière de consentement n'est donc nécessaire.</p>
+        <p>La fréquentation du site est mesurée avec <b>Cloudflare Web Analytics</b>, un outil <b>sans cookie</b> : il compte les pages vues et les provenances, sans identifiant unique, sans empreinte de navigateur et sans suivi d'un site à l'autre. Aucune donnée n'est revendue ni utilisée à des fins publicitaires.</p>
         <p>Les <b>polices d'écriture sont hébergées sur notre propre site</b> : aucune requête n'est envoyée à Google Fonts. Votre navigateur contacte toutefois deux <b>services tiers</b>, ce qui leur transmet techniquement votre adresse IP :</p>
         <ul>
           <li><b>cdnjs / Cloudflare</b> : bibliothèques d'affichage et de génération du devis PDF.</li>
+          <li><b>Cloudflare Web Analytics</b> : mesure de fréquentation, sans cookie ni identifiant.</li>
           <li><b>API Adresse — data.gouv.fr</b> (service public) : uniquement le <b>code postal</b> que vous saisissez, afin d'estimer un éventuel déplacement. Aucune autre donnée n'est transmise.</li>
         </ul>
       </section>
@@ -2451,5 +2453,7 @@
     });
   })();
 </script>
+<!-- Mesure d'audience Cloudflare Web Analytics : sans cookie, sans profilage. -->
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a38ad50ae7694cae92dd85d44a7b7202"}'></script>
 </body>
 </html>
