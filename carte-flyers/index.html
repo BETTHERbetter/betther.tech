@@ -90,6 +90,8 @@ h1{font-family:var(--font-d);font-size:18px;font-weight:600;margin:0;white-space
 @media (max-width:420px){#hdr h1{display:none}}
 .ilot-m{width:26px;height:26px;display:grid;place-items:center;font:700 20px/1 system-ui;color:#7B2FF7;text-shadow:0 0 3px #fff,0 0 3px #fff}
 .ilot-x{color:#7B2FF7;margin-right:4px}
+.fab{position:absolute;z-index:1050;right:12px;bottom:calc(64px + env(safe-area-inset-bottom,0px));font:600 15px/1 var(--font-b,system-ui);padding:12px 14px;border-radius:999px;border:0;background:#7B2FF7;color:#fff;box-shadow:var(--shadow);cursor:pointer}
+.fab[aria-pressed="true"]{background:var(--ink);color:var(--panel)}
 #bGps[aria-pressed="true"]{background:var(--sel,#2F6FED);color:#fff;border-color:transparent}
 .gps-dot{width:16px;height:16px;border-radius:50%;background:#2F6FED;border:3px solid #fff;box-shadow:0 0 0 2px rgba(47,111,237,.35),0 1px 4px rgba(0,0,0,.4)}
 .bar{height:6px;border-radius:3px;background:var(--panel-2);overflow:hidden;border:1px solid var(--line)}
@@ -128,7 +130,8 @@ button:focus-visible{outline:2px solid var(--sel);outline-offset:2px}
     <div class="chips" id="chips" role="group" aria-label="Secteurs"></div>
   </header>
   <div id="map"></div>
-  <div id="legend"><span><i style="background:var(--todo)"></i>à faire</span><span><i style="background:var(--done)"></i>déposés</span><span><i style="background:var(--off)"></i>hors cible</span><span id="lgIlot" hidden><b class="ilot-x">✕</b>boîtes groupées ?</span></div>
+  <div id="legend"><span><i style="background:var(--todo)"></i>à faire</span><span><i style="background:var(--done)"></i>déposés</span><span><i style="background:var(--off)"></i>hors cible</span><span id="lgIlot" hidden><b class="ilot-x">✕</b>îlot de boîtes</span></div>
+  <button id="bIlot" class="fab" title="Ajouter un îlot de boîtes aux lettres">＋ ✕ Îlot</button>
   <div id="sync">…</div>
   <div id="empty" hidden></div>
 
@@ -255,7 +258,7 @@ async function flush(){
 let tTimer=null;
 function toast(r,prev,et){
   const lbl=et==="fait"?"flyers déposés":et==="ignore"?"mise de côté":et==="cible"?"ajoutée aux cibles":"remise à faire";
-  $("tMsg").textContent=`${r.nom} : ${lbl}`;
+  $("tMsg").textContent=`${r.nom} : ${lbl}`;$("tUndo").textContent="Annuler";
   $("toast").hidden=false;
   $("tUndo").onclick=()=>{ $("toast").hidden=true; setMark(r,prev?prev.etat:null,true); if(prev)marks[r.id]=prev,saveLocal(); };
   clearTimeout(tTimer); tTimer=setTimeout(()=>$("toast").hidden=true,4000);
@@ -335,12 +338,17 @@ function liste(){
     $("pListe").hidden=true;if(pts.length)map.fitBounds(pts,{padding:[30,30]})});
 }
 
-let ILOTS=[];
+let ILOTS=[], poseIlot=false;
+try{ILOTS=JSON.parse(localStorage.getItem(LS+"-ilots")||"[]")}catch(e){}
+function saveIlots(){try{localStorage.setItem(LS+"-ilots",JSON.stringify(ILOTS))}catch(e){};$("lgIlot").hidden=!ILOTS.length}
+function placeIlot(ll){poseIlot=false;$("bIlot").setAttribute("aria-pressed","false");
+  ILOTS.push({lat:+ll.lat.toFixed(6),lon:+ll.lng.toFixed(6),date:today()});saveIlots();labels();gpsMsg("Îlot ajouté.")}
 function labels(){
   const z=map.getZoom();
   for(const l of layers)map.removeLayer(l);layers=[];
-  if(z>=14)ILOTS.forEach(o=>{const m=L.marker([o.lat,o.lon],{zIndexOffset:500,icon:L.divIcon({className:"",html:'<div class="ilot-m">✕</div>',iconSize:[26,26],iconAnchor:[13,13]})}).addTo(map);
-    m.on("click",ev=>{L.DomEvent.stopPropagation(ev);gpsMsg(`${o.nom} : impasse d'environ ${o.n} maisons, îlot de boîtes probable à l'entrée (à vérifier sur place).`)});layers.push(m)});
+  if(z>=13)ILOTS.forEach((o,k)=>{const m=L.marker([o.lat,o.lon],{zIndexOffset:500,icon:L.divIcon({className:"",html:'<div class="ilot-m">✕</div>',iconSize:[26,26],iconAnchor:[13,13]})}).addTo(map);
+    m.on("click",ev=>{L.DomEvent.stopPropagation(ev);gpsMsg(`Îlot noté le ${o.date||"?"}`);$("tUndo").textContent="Supprimer";
+      $("tUndo").onclick=()=>{ILOTS.splice(k,1);saveIlots();labels();$("toast").hidden=true;$("tUndo").textContent="Annuler"}});layers.push(m)});
   if(z<15)D.communes.forEach(c=>layers.push(L.marker(c.label,{interactive:false,icon:L.divIcon({className:"",html:`<div class="lbl-commune">${esc(c.nom)}</div>`,iconSize:[0,0]})}).addTo(map)));
   if(z>=13&&z<17)D.quartiers.forEach(q=>layers.push(L.marker(q.pos,{interactive:false,icon:L.divIcon({className:"",html:`<div class="lbl-quartier${q.cible?"":" hors"}">${esc(q.nom)}</div>`,iconSize:[0,0]})}).addTo(map)));
 }
@@ -363,7 +371,7 @@ async function init(){
   for(const r of D.rues){r._p=decode(r.g);byId[r.id]=r}
   for(const r of order){
     r._l=L.polyline(r._p,{renderer:rend,...{color:"#000"}}).addTo(map);
-    r._l.on("click",ev=>{L.DomEvent.stopPropagation(ev);
+    r._l.on("click",ev=>{L.DomEvent.stopPropagation(ev);if(poseIlot){placeIlot(ev.latlng);return}
       if(rapide&&(canWrite||!db)){const e=etat(r);setMark(r,e==="fait"?null:"fait")}
       else openSheet([r]);
     });
@@ -375,7 +383,9 @@ async function init(){
   restyle(); labels(); progress(); syncLabel();
   document.documentElement.style.setProperty("--hh",$("hdr").offsetHeight+"px");
   connectDb();
-  try{const r=await fetch("ilots.json");if(r.ok){ILOTS=await r.json();$("lgIlot").hidden=!ILOTS.length;labels()}}catch(e){}
+  $("lgIlot").hidden=!ILOTS.length;
+  map.on("click",ev=>{if(poseIlot)placeIlot(ev.latlng)});
+  $("bIlot").onclick=()=>{poseIlot=!poseIlot;$("bIlot").setAttribute("aria-pressed",poseIlot);if(poseIlot)gpsMsg("Touche la carte à l'endroit de l'îlot.")};
 }
 
 async function connectDb(){
@@ -405,7 +415,7 @@ $("bCherche").onclick=()=>{$("pCherche").hidden=false;$("q").focus();search()};
 $("pChercheX").onclick=()=>$("pCherche").hidden=true;
 $("q").oninput=search;
 let gpsWatch=null, gpsDot=null, gpsAcc=null, gpsFirst=false;
-function gpsMsg(t){$("tMsg").textContent=t;$("tUndo").onclick=()=>$("toast").hidden=true;$("toast").hidden=false;clearTimeout(tTimer);tTimer=setTimeout(()=>$("toast").hidden=true,4000)}
+function gpsMsg(t){$("tMsg").textContent=t;$("tUndo").textContent="OK";$("tUndo").onclick=()=>$("toast").hidden=true;$("toast").hidden=false;clearTimeout(tTimer);tTimer=setTimeout(()=>$("toast").hidden=true,4000)}
 function gpsStop(){if(gpsWatch!==null)navigator.geolocation.clearWatch(gpsWatch);gpsWatch=null;$("bGps").setAttribute("aria-pressed","false");
   if(gpsDot){gpsDot.remove();gpsAcc.remove();gpsDot=gpsAcc=null}}
 $("bGps").onclick=()=>{
