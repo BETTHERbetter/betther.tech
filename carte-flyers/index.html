@@ -88,6 +88,8 @@ h1{font-family:var(--font-d);font-size:18px;font-weight:600;margin:0;white-space
 .panel .doc .mute{color:var(--ink-soft);font-size:14px;margin:10px 0 0}
 .tagv{display:inline-block;font-size:11px;font-weight:600;padding:1px 8px;border-radius:999px;border:1px solid var(--todo);color:var(--todo)}
 @media (max-width:420px){#hdr h1{display:none}}
+.ilot-m{width:26px;height:26px;display:grid;place-items:center;font:700 20px/1 system-ui;color:#7B2FF7;text-shadow:0 0 3px #fff,0 0 3px #fff}
+.ilot-x{color:#7B2FF7;margin-right:4px}
 #bGps[aria-pressed="true"]{background:var(--sel,#2F6FED);color:#fff;border-color:transparent}
 .gps-dot{width:16px;height:16px;border-radius:50%;background:#2F6FED;border:3px solid #fff;box-shadow:0 0 0 2px rgba(47,111,237,.35),0 1px 4px rgba(0,0,0,.4)}
 .bar{height:6px;border-radius:3px;background:var(--panel-2);overflow:hidden;border:1px solid var(--line)}
@@ -126,7 +128,7 @@ button:focus-visible{outline:2px solid var(--sel);outline-offset:2px}
     <div class="chips" id="chips" role="group" aria-label="Secteurs"></div>
   </header>
   <div id="map"></div>
-  <div id="legend"><span><i style="background:var(--todo)"></i>à faire</span><span><i style="background:var(--done)"></i>déposés</span><span><i style="background:var(--off)"></i>hors cible</span></div>
+  <div id="legend"><span><i style="background:var(--todo)"></i>à faire</span><span><i style="background:var(--done)"></i>déposés</span><span><i style="background:var(--off)"></i>hors cible</span><span id="lgIlot" hidden><b class="ilot-x">✕</b>boîtes groupées ?</span></div>
   <div id="sync">…</div>
   <div id="empty" hidden></div>
 
@@ -333,9 +335,12 @@ function liste(){
     $("pListe").hidden=true;if(pts.length)map.fitBounds(pts,{padding:[30,30]})});
 }
 
+let ILOTS=[];
 function labels(){
   const z=map.getZoom();
   for(const l of layers)map.removeLayer(l);layers=[];
+  if(z>=14)ILOTS.forEach(o=>{const m=L.marker([o.lat,o.lon],{zIndexOffset:500,icon:L.divIcon({className:"",html:'<div class="ilot-m">✕</div>',iconSize:[26,26],iconAnchor:[13,13]})}).addTo(map);
+    m.on("click",ev=>{L.DomEvent.stopPropagation(ev);gpsMsg(`${o.nom} : impasse d'environ ${o.n} maisons, îlot de boîtes probable à l'entrée (à vérifier sur place).`)});layers.push(m)});
   if(z<15)D.communes.forEach(c=>layers.push(L.marker(c.label,{interactive:false,icon:L.divIcon({className:"",html:`<div class="lbl-commune">${esc(c.nom)}</div>`,iconSize:[0,0]})}).addTo(map)));
   if(z>=13&&z<17)D.quartiers.forEach(q=>layers.push(L.marker(q.pos,{interactive:false,icon:L.divIcon({className:"",html:`<div class="lbl-quartier${q.cible?"":" hors"}">${esc(q.nom)}</div>`,iconSize:[0,0]})}).addTo(map)));
 }
@@ -370,6 +375,7 @@ async function init(){
   restyle(); labels(); progress(); syncLabel();
   document.documentElement.style.setProperty("--hh",$("hdr").offsetHeight+"px");
   connectDb();
+  try{const r=await fetch("ilots.json");if(r.ok){ILOTS=await r.json();$("lgIlot").hidden=!ILOTS.length;labels()}}catch(e){}
 }
 
 async function connectDb(){
