@@ -334,3 +334,9 @@ footer{background:var(--ground);border-top:1px solid var(--line);padding:40px 0 
   /* titres de pages internes (anciens h1) : meme rendu, un seul h1 par URL */
   .pd-hero .pd-title{font-family:var(--font-display);font-size:clamp(31px,5vw,54px);line-height:1.04;letter-spacing:-.015em;text-wrap:balance;margin:0}
   @media(max-width:520px){.pd-hero .pd-title{font-size:clamp(25px,7vw,34px)}}
+
+  /* fiches de réalisation en pages autonomes */
+  .pd-retour{margin:26px 0 -18px;font-size:14.5px}
+  .pd-retour a{text-decoration:none}
+  .pd-retour a:hover{text-decoration:underline}
+  main.pd-wrap{display:block}
