@@ -449,7 +449,7 @@
   .chapter .codes{margin-top:22px;display:flex;gap:8px;flex-wrap:wrap}
   .chapter .codes span{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;color:var(--accent-ink);background:color-mix(in srgb,var(--accent) 14%,transparent);border:1px solid color-mix(in srgb,var(--accent) 26%,transparent);padding:5px 11px;border-radius:100px}
 
-  .story-visual{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;padding-top:64px;box-sizing:border-box;z-index:1}
+  .story-visual{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;padding-top:72px;box-sizing:border-box;z-index:1}
   .viz{position:relative;width:100%;max-width:490px;aspect-ratio:14/11;max-height:62vh;border-radius:18px;overflow:hidden;background:#0a1020;border:1px solid var(--line);box-shadow:0 1px 2px rgba(0,11,33,.05),0 40px 70px -34px rgba(0,11,33,.5)}
   .layer{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none}
   /* horizontal reveal line moving BOTTOM → TOP */
@@ -1978,6 +1978,9 @@
     /* Envoi de la demande par Web3Forms (le site est statique : aucun serveur a nous).
        La cle est publique par conception. Retourne une promesse true/false. */
     function envoyerDemande(sujet,corps,email,nom){
+      // espaces fines insécables -> espaces normales : sur iPhone, Mail ne reconnaît le numéro
+      // comme cliquable que s'il est écrit avec des espaces ordinaires.
+      corps=String(corps||'').replace(/[\u202f\u00a0]/g,' ');
       var data={access_key:'1c229693-4a09-4e35-87ca-0337d5224fef',subject:sujet,from_name:'Site betther.tech',name:nom||'Visiteur',message:corps};
       if(email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) data.email=email;
       return fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
@@ -2227,9 +2230,9 @@
       if(incEl){ incEl.innerHTML = p ? ('<div class="inc-t">Comprend</div>'+p.inc.map(function(x){return '<span>'+esc(x)+'</span>';}).join('')) : ''; }
       // SMS
       var opts=[]; if(chk('optPrio'))opts.push('Prioritaire 48h (+25%)'); if(chk('optVisit'))opts.push('Visite sur site (+120€)'); if(chk('optVar'))opts.push('Variante énergétique (+120€)'); if(chk('optDossier'))opts.push('Dossier fin de travaux (+320€)');
-      var msg='Bonjour BET·THER, demande de devis.'
+      var msg='Bonjour BETTHER, demande de devis.'
         +'\nPack : '+((p&&p.name)||'-')
-        +'\nEstimation (offre -'+Math.round(PROMO*100)+'% incluse) : '+(res.sd?'Sur devis':(finalP.toLocaleString('fr-FR')+' € (avant offre '+res.total.toLocaleString('fr-FR')+' €)'))
+        +'\nEstimation (offre -'+Math.round(PROMO*100)+'% incluse) : '+(res.sd?'Sur devis':(finalP.toLocaleString('fr-FR')+' € HT (avant offre '+res.total.toLocaleString('fr-FR')+' € HT)'))
         +'\nBâtiment : '+(answers.batiment||'-')+(answers.batiment==='Immeuble collectif'&&val('wizLgt')?(' ('+val('wizLgt')+' logts)'):'')
         +'\nÉtat : '+(answers.nature||'-')
         +'\nSurface : '+(val('wizSurf')?val('wizSurf')+' m²':'-')
@@ -2542,6 +2545,9 @@
     /* Envoi de la demande par Web3Forms (le site est statique : aucun serveur a nous).
        La cle est publique par conception. Retourne une promesse true/false. */
     function envoyerDemande(sujet,corps,email,nom){
+      // espaces fines insécables -> espaces normales : sur iPhone, Mail ne reconnaît le numéro
+      // comme cliquable que s'il est écrit avec des espaces ordinaires.
+      corps=String(corps||'').replace(/[\u202f\u00a0]/g,' ');
       var data={access_key:'1c229693-4a09-4e35-87ca-0337d5224fef',subject:sujet,from_name:'Site betther.tech',name:nom||'Visiteur',message:corps};
       if(email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) data.email=email;
       return fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})

@@ -98,6 +98,9 @@
     /* Envoi de la demande par Web3Forms (le site est statique : aucun serveur a nous).
        La cle est publique par conception. Retourne une promesse true/false. */
     function envoyerDemande(sujet,corps,email,nom){
+      // espaces fines insécables -> espaces normales : sur iPhone, Mail ne reconnaît le numéro
+      // comme cliquable que s'il est écrit avec des espaces ordinaires.
+      corps=String(corps||'').replace(/[\u202f\u00a0]/g,' ');
       var data={access_key:'1c229693-4a09-4e35-87ca-0337d5224fef',subject:sujet,from_name:'Site betther.tech',name:nom||'Visiteur',message:corps};
       if(email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) data.email=email;
       return fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
