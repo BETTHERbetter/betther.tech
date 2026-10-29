@@ -191,6 +191,7 @@
   .strip-track .strip-link{appearance:none;-webkit-appearance:none;background:none;border:0;padding:0;margin:0;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;cursor:pointer;text-decoration:none;transition:color .18s}
   .strip-track .strip-link:hover{color:var(--accent)}
   #devis{scroll-margin-top:72px}
+  @media(max-width:860px){#devis{scroll-margin-top:var(--navh,112px)}}
   .strip-track .strip-link:focus-visible{outline:2px solid var(--accent);outline-offset:5px;border-radius:4px;color:var(--accent)}
   .strip:focus-within .strip-track,.strip.is-paused .strip-track{animation-play-state:paused}
   @keyframes slide{to{transform:translateX(-50%)}}
@@ -468,7 +469,8 @@
   /* mobile : image FIXÉE en bas (pleine largeur) ; le texte et les bandes de
      couleur montent, et la ligne entre les bandes transforme la maison en bas */
   @media (max-width:900px){
-    .story-grid{display:block;padding:0 16px}
+    .story-grid{display:block;padding:0 18px}
+    .story-text{max-width:520px;margin:0 auto}
     .story-visual{position:fixed;left:0;right:0;bottom:0;top:auto;height:42vh;width:100%;padding:0 18px 16px;z-index:5;opacity:0;pointer-events:none;transition:opacity .4s ease}
     .story-visual.viz-show{opacity:1}
     .l1,.l2,.l3,.l4{transition:clip-path .55s cubic-bezier(.4,0,.2,1)}
@@ -485,7 +487,7 @@
   }
   @media (max-width:520px){
     .story-grid{padding:0 12px}
-    .story-visual{height:42vh}
+    .story-visual{height:42vh;padding:0 12px 16px}
     .chapter{min-height:48vh}
     .chapter-spacer{min-height:10vh}
     .chapter h3{font-size:21px}
@@ -697,6 +699,7 @@
   .wiz-note-mini{margin-top:16px;font-size:13px;color:var(--ink-soft);line-height:1.5}
   .wiz-suggest{margin-top:14px;font-size:13.5px;color:var(--accent-ink);background:color-mix(in srgb,var(--accent) 8%,transparent);border:1px solid color-mix(in srgb,var(--accent) 24%,transparent);border-radius:10px;padding:10px 14px}
   .wiz-checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:10px;margin-top:24px}
+  .wiz-check[hidden]{display:none}
   .wiz-check{display:flex;align-items:flex-start;gap:10px;border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;cursor:pointer;font-size:14.5px;color:var(--ink);background:var(--ground);transition:border-color .2s ease;text-align:left}
   .wiz-check:hover{border-color:var(--line-strong)}
   .wiz-check input{margin-top:1px;accent-color:var(--accent);width:17px;height:17px;flex:none}
@@ -739,7 +742,7 @@
   .wiz-files-list{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px}
   .wiz-files-list span{font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);background:var(--ground);border:1px solid var(--line);padding:5px 10px;border-radius:100px}
   .wiz-nav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:26px}
-  .wiz-back{display:inline-flex;align-items:center;gap:8px;background:var(--ground);border:1.5px solid var(--line-strong);border-radius:100px;color:var(--ink-soft);font-family:var(--font-body);font-size:15px;font-weight:500;cursor:pointer;padding:12px 24px;transition:border-color .2s ease,color .2s ease,background .2s ease,transform .2s ease}
+  .wiz-back{white-space:nowrap;flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;background:var(--ground);border:1.5px solid var(--line-strong);border-radius:100px;color:var(--ink-soft);font-family:var(--font-body);font-size:15px;font-weight:500;cursor:pointer;padding:12px 24px;transition:border-color .2s ease,color .2s ease,background .2s ease,transform .2s ease}
   .wiz-back:hover{color:var(--accent-ink);border-color:var(--accent);background:color-mix(in srgb,var(--accent) 7%,var(--ground));transform:translateX(-2px)}
   .wiz-back[disabled]{opacity:0;pointer-events:none}
   .wiz-next{opacity:.5;pointer-events:none}
@@ -761,6 +764,8 @@
   .wiz-promo{margin-top:16px;display:inline-flex;align-items:center;gap:9px;font-size:13.5px;color:var(--accent-ink);background:color-mix(in srgb,var(--accent) 9%,transparent);border:1px solid color-mix(in srgb,var(--accent) 26%,transparent);border-radius:100px;padding:7px 15px}
   .wiz-promo .wiz-promo-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:var(--accent);color:#fff;padding:3px 9px;border-radius:100px}
   .wiz-promo b{font-size:15px}
+  .wiz-promo sup{font-size:.7em;line-height:0}
+  @media (max-width:520px){.wiz-promo{display:flex;flex-wrap:wrap;gap:6px 9px;border-radius:16px;padding:9px 14px}}
   .price-old{text-decoration:line-through;color:var(--ink-faint);font-size:.6em;font-family:var(--font-body);font-weight:400;margin-right:6px}
   .price-badge{display:inline-block;vertical-align:middle;font-family:var(--font-mono);font-size:.28em;letter-spacing:.04em;color:#fff;background:var(--accent);padding:5px 10px;border-radius:100px;margin-left:8px;transform:translateY(-5px)}
   /* gros packs */
@@ -951,7 +956,7 @@
   .nav-std .btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-body);font-weight:600;font-size:14.5px;text-decoration:none;border-radius:100px;padding:11px 20px;cursor:pointer;width:auto;margin:0;order:0;background:var(--accent);color:#fff;border:1px solid var(--accent);transition:filter .2s ease,transform .2s ease}
   .nav-std .btn svg{width:16px;height:16px}
   .nav-std .btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
-  @media(max-width:720px){
+  @media(max-width:860px){
     .nav-std .nav-in{flex-wrap:wrap;height:auto;gap:12px;padding-top:10px}
     .nav-std .nav-in>.nav-logo{order:1}
     .nav-std .nav-in>.btn{order:2;margin-left:auto;white-space:nowrap;font-size:13px;padding:10px 18px}
@@ -961,6 +966,21 @@
     .nav-std .nav-links a,.nav-std .nav-drop-t{font-size:13px}
     .nav-std .nav-drop-m{left:0;transform:translateX(0) translateY(-6px);max-width:calc(100vw - 32px)}
     .nav-std .nav-drop:hover .nav-drop-m,.nav-std .nav-drop.is-open .nav-drop-m{transform:translateX(0) translateY(0)}
+  }
+  @media(max-width:400px){
+    .nav-std .nav-in{gap:10px}
+    .nav-std .nav-logo img{height:26px}
+    .nav-std .nav-in>.btn{font-size:12.5px;padding:9px 14px}
+    .nav-std .nav-links{gap:11px}
+    .nav-std .nav-links a,.nav-std .nav-drop-t{font-size:12.5px}
+  }
+  @media(min-width:861px) and (max-width:1080px){
+    .nav-std .nav-in{gap:18px}
+    .nav-std .nav-logo img{height:36px}
+    .nav-std .nav-links{gap:16px;flex-wrap:nowrap}
+    .nav-std .nav-links a,.nav-std .nav-drop-t{font-size:13.5px}
+    .nav-std .btn{white-space:nowrap;font-size:13.5px;padding:10px 16px}
+    .nav-std .btn svg{display:none}
   }
 </style>
 </head>
@@ -1029,7 +1049,7 @@
       <div class="wiz-head">
         <span class="eyebrow">Votre projet</span>
         <h2>Demandez votre devis gratuit.</h2>
-        <div class="wiz-promo" id="wizPromo"><span class="wiz-promo-tag">Offre de lancement</span> <b>-15&nbsp;%</b> sur toutes les études, jusqu'au 1<sup>er</sup>&nbsp;janvier&nbsp;2027.</div>
+        <div class="wiz-promo" id="wizPromo"><span class="wiz-promo-tag">Offre de lancement</span><span class="wiz-promo-txt"><b>-15&nbsp;%</b> sur toutes les études, jusqu'au 1<sup>er</sup>&nbsp;janvier&nbsp;2027.</span></div>
       </div>
       <div class="wiz-top">
         <span class="wiz-step-label" id="wizStepLabel">Étape 1 / 10</span>
@@ -1236,7 +1256,7 @@
             <label class="wiz-check"><input type="checkbox" id="optPrio"><span>Traitement prioritaire 48&nbsp;h <b>+25&nbsp;%</b><i>Sous réserve de disponibilité et d'un dossier complet.</i></span></label>
             <label class="wiz-check" id="optVisitWrap"><input type="checkbox" id="optVisit"><span>Visite sur site <b>+120&nbsp;€</b> <i>+ déplacement éventuel.</i></span></label>
             <label class="wiz-check"><input type="checkbox" id="optVar"><span>Variante énergétique supplémentaire <b>+120&nbsp;€</b><i>Ex. PAC air/eau vs poêle + ballon.</i></span></label>
-            <label class="wiz-check"><input type="checkbox" id="optDossier"><span>Dossier RE2020 fin de travaux <b>+320&nbsp;€</b><i>Mise à jour du calcul selon le projet réalisé, attestation établie par votre architecte.</i></span></label>
+            <label class="wiz-check" id="optDossierWrap"><input type="checkbox" id="optDossier"><span>Dossier RE2020 fin de travaux <b>+320&nbsp;€</b><i>Mise à jour du calcul selon le projet réalisé, attestation établie par votre architecte.</i></span></label>
           </div>
 
           <div class="wiz-recap" id="wizRecap"></div>
@@ -1675,14 +1695,14 @@
       </section>
       <section>
         <div class="pd-kicker">02 — Principe</div>
-        <h2>Le site n'enregistre rien</h2>
+        <h2>Le site ne garde rien</h2>
         <p>betther.tech est un <b>site statique</b> : il ne comporte ni compte utilisateur, ni base de données, ni serveur applicatif.</p>
         <ul>
-          <li>Les informations saisies dans le <b>formulaire de contact</b> et dans le <b>parcours devis</b> ne sont <b>pas enregistrées sur un serveur</b> : elles servent uniquement à <b>pré-remplir un e-mail (ou un SMS)</b> que vous envoyez vous-même, depuis votre appareil et votre propre messagerie.</li>
+          <li>Quand vous validez le <b>formulaire de contact</b> ou le <b>parcours devis</b>, votre message est transmis par le service <b>Web3Forms</b>, qui nous le remet par e-mail. Le site lui-même n'en conserve aucune copie. Si cet envoi échoue, le site vous propose d'envoyer le même message depuis votre propre messagerie.</li>
           <li>Les <b>documents</b> que vous sélectionnez (plans, photos, factures) ne sont <b>pas téléversés</b> par le site&nbsp;: seuls leurs noms s'affichent à l'écran, pour mémoire.</li>
           <li>Le <b>devis PDF</b> est généré <b>localement dans votre navigateur</b> et téléchargé sur votre appareil.</li>
         </ul>
-        <p>Nous ne recevons donc vos données qu'<b>à partir du moment où vous nous envoyez volontairement</b> votre message.</p>
+        <p>Nous ne recevons donc vos données qu'<b>à partir du moment où vous validez volontairement</b> l'envoi de votre message.</p>
       </section>
       <section>
         <div class="pd-kicker">03 — Données et finalités</div>
@@ -1711,7 +1731,7 @@
         <h2>Aucun traceur</h2>
         <p>Le site <b>n'utilise aucun cookie</b> de profilage ou de publicité, et n'installe aucun traceur sur votre appareil. Aucune bannière de consentement n'est donc nécessaire.</p>
         <p>La fréquentation du site est mesurée avec <b>Cloudflare Web Analytics</b>, un outil <b>sans cookie</b> : il compte les pages vues et les provenances, sans identifiant unique, sans empreinte de navigateur et sans suivi d'un site à l'autre. Aucune donnée n'est revendue ni utilisée à des fins publicitaires.</p>
-        <p>Les <b>polices d'écriture sont hébergées sur notre propre site</b> : aucune requête n'est envoyée à Google Fonts. Votre navigateur contacte toutefois deux <b>services tiers</b>, ce qui leur transmet techniquement votre adresse IP&nbsp;:</p>
+        <p>Les <b>polices d'écriture sont hébergées sur notre propre site</b> : aucune requête n'est envoyée à Google Fonts. Votre navigateur contacte toutefois trois <b>services tiers</b>, ce qui leur transmet techniquement votre adresse IP&nbsp;:</p>
         <ul>
           <li><b>cdnjs / Cloudflare</b> : bibliothèques d'affichage et de génération du devis PDF.</li>
           <li><b>Cloudflare Web Analytics</b> : mesure de fréquentation, sans cookie ni identifiant.</li>
@@ -2193,11 +2213,15 @@
     function esc(s){return String(s).replace(/[<>&]/g,'');}
     function render(){
       var p=pack();
+      // options sans objet : visite déjà comprise (audit), dossier RE2020 hors construction neuve.
+      // On les décoche aussi, pour qu'elles ne restent pas comptées si le visiteur revient en arrière.
+      [['optVisitWrap','optVisit',!!(p&&p.visit)],['optDossierWrap','optDossier',answers.nature!=='Construction neuve']].forEach(function(o){
+        var w=document.getElementById(o[0]), c=document.getElementById(o[1]);
+        if(w) w.hidden=o[2]; if(o[2]&&c) c.checked=false;
+      });
       var res=compute();
       var finalP = res.sd?null:promoPrice(res.total);
       var priceEl=document.getElementById('wizPrice'), noteEl=document.getElementById('wizPriceNote');
-      // masque l'option "visite" si déjà comprise (audit)
-      var ovw=document.getElementById('optVisitWrap'); if(ovw) ovw.hidden = !!(p&&p.visit);
       if(res.sd){
         priceEl.textContent='Sur devis';
         noteEl.textContent='Votre projet nécessite une vérification rapide avant confirmation du tarif. Transmettez vos documents : votre devis définitif vous sera envoyé.';
@@ -2413,7 +2437,7 @@
     var champAutre=document.getElementById('wizProfilAutre');
     if(champAutre) champAutre.addEventListener('input',refreshNext);
 
-    /* Espaces automatiques : 06 12 34 56 78 et 51 100 */
+    /* Espaces automatiques : 06 12 34 56 78 (le code postal reste en 5 chiffres collés) */
     function grouper(brut,tailles){
       var d=String(brut||'').replace(/\D/g,''), out=[], i=0;
       tailles.forEach(function(t){ if(i<d.length){ out.push(d.substr(i,t)); i+=t; } });
@@ -2431,7 +2455,7 @@
       });
     }
     formateEnSaisie(document.getElementById('wizTel'),[2,2,2,2,2],10);
-    formateEnSaisie(document.getElementById('wizCP'),[2,3],5);
+    formateEnSaisie(document.getElementById('wizCP'),[5],5); // code postal : 5 chiffres, sans espace (norme La Poste)
 
     /* Rouge sur ce qui manque quand on clique sur Continuer */
     var OBLIGATOIRES=[
