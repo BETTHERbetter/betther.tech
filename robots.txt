@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /carte-flyers/
 
 Sitemap: https://betther.tech/sitemap.xml
