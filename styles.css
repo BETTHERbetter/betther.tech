@@ -340,3 +340,23 @@ footer{background:var(--ground);border-top:1px solid var(--line);padding:40px 0 
   .pd-retour a{text-decoration:none}
   .pd-retour a:hover{text-decoration:underline}
   main.pd-wrap{display:block}
+
+  /* texte long des pages de prestations */
+  .prose{margin-top:26px}
+  .prose p{margin-top:14px;color:var(--ink-soft);font-size:16.5px;line-height:1.72;max-width:72ch}
+  .prose h3{font-family:var(--font-body);font-weight:600;font-size:18.5px;margin:30px 0 4px;color:var(--ink)}
+  .prose p b,.prose li b{color:var(--ink);font-weight:600}
+  .prose ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+  .prose li{position:relative;padding-left:26px;color:var(--ink-soft);font-size:16.5px;line-height:1.65;max-width:70ch}
+  .prose li::before{content:"";position:absolute;left:4px;top:10px;width:8px;height:8px;border-radius:2px;background:var(--accent)}
+  /* questions fréquentes */
+  .faq{margin-top:30px;border-top:1px solid var(--line);max-width:860px}
+  .faq details{border-bottom:1px solid var(--line)}
+  .faq summary{cursor:pointer;list-style:none;padding:18px 2px;font-weight:600;font-size:17px;color:var(--ink);display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";font-family:var(--font-mono);font-size:19px;line-height:1.2;color:var(--accent-ink);flex:none}
+  .faq details[open] summary::after{content:"\2013"}
+  .faq summary:hover{color:var(--accent-ink)}
+  .faq details>div{padding:0 2px 20px}
+  .faq details p{margin:0 0 12px;color:var(--ink-soft);font-size:16.5px;line-height:1.72;max-width:72ch}
+  .faq details p:last-child{margin-bottom:0}
