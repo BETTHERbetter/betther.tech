@@ -67,9 +67,18 @@
           + 'z-index:60;width:280px;max-width:72vw;padding:12px 14px;border-radius:13px;'
           + 'font:400 13px/1.45 var(--font-body,sans-serif);letter-spacing:0;text-transform:none;text-align:left;'
           + 'background:var(--surface,#fff);color:var(--ink,#0B1120);border:1px solid var(--line-strong,#D3CDC1);'
-          + 'box-shadow:0 20px 44px -24px rgba(0,11,33,.8);opacity:0;visibility:hidden;transition:opacity .15s ease');
+          + 'box-shadow:0 20px 44px -24px rgba(0,11,33,.8);display:none');
         span.appendChild(bulle);
-        function montre(v){ bulle.style.opacity = v ? '1' : '0'; bulle.style.visibility = v ? 'visible' : 'hidden'; }
+        // Bulle masquée = display:none, sinon elle déborde du cadre et fait glisser la page
+        // de côté sur téléphone. Affichée, on la recale pour qu'elle reste dans l'écran.
+        function montre(v){
+          if(!v){ bulle.style.display = 'none'; return; }
+          bulle.style.display = 'block'; bulle.style.transform = 'translateX(-50%)';
+          var r = bulle.getBoundingClientRect(), marge = 8, dx = 0, w = document.documentElement.clientWidth;
+          if(r.right > w - marge) dx = w - marge - r.right;
+          if(r.left + dx < marge) dx = marge - r.left;
+          bulle.style.transform = 'translateX(calc(-50% + ' + Math.round(dx) + 'px))';
+        }
         span.addEventListener('mouseenter',function(){ montre(true); });
         span.addEventListener('mouseleave',function(){ montre(false); });
         span.addEventListener('focus',function(){ montre(true); });
