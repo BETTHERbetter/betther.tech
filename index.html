@@ -186,8 +186,13 @@
   /* ===== MARQUEE défilant (normes / prestations) ===== */
   .strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--ground-2);overflow:hidden;position:relative;z-index:2}
   .strip-track{display:flex;gap:44px;padding:15px 0;white-space:nowrap;font-family:var(--font-mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);width:max-content;animation:slide 36s linear infinite}
-  .strip-track span{display:inline-flex;align-items:center;gap:44px}
-  .strip-track span::after{content:"◆";color:var(--accent);font-size:8px}
+  .strip-track span,.strip-track .strip-link{display:inline-flex;align-items:center;gap:44px}
+  .strip-track span::after,.strip-track .strip-link::after{content:"◆";color:var(--accent);font-size:8px}
+  .strip-track .strip-link{appearance:none;-webkit-appearance:none;background:none;border:0;padding:0;margin:0;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;cursor:pointer;text-decoration:none;transition:color .18s}
+  .strip-track .strip-link:hover{color:var(--accent)}
+  #devis{scroll-margin-top:72px}
+  .strip-track .strip-link:focus-visible{outline:2px solid var(--accent);outline-offset:5px;border-radius:4px;color:var(--accent)}
+  .strip:focus-within .strip-track,.strip.is-paused .strip-track{animation-play-state:paused}
   @keyframes slide{to{transform:translateX(-50%)}}
   .strip:hover .strip-track{animation-play-state:paused}
   @media(prefers-reduced-motion:reduce){.strip-track{animation:none}}
@@ -682,6 +687,7 @@
   .wiz-fields textarea{width:100%;box-sizing:border-box;font-family:var(--font-body);font-size:15.5px;color:var(--ink);background:var(--ground);border:1px solid var(--line-strong);border-radius:10px;padding:12px 14px;resize:vertical;min-height:82px}
   .wiz-fields textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
   .wiz-fields .field-full{grid-column:1 / -1}
+  .wiz-fields .field[hidden],.wiz-fields [hidden]{display:none}
   .wiz-fields select{width:100%;box-sizing:border-box;font-family:var(--font-body);font-size:15.5px;color:var(--ink);background:var(--ground);border:1px solid var(--line-strong);border-radius:10px;padding:12px 14px;cursor:pointer}
   .wiz-fields select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
   .wiz-subfield{margin-top:18px;max-width:280px}
@@ -694,9 +700,30 @@
   .wiz-check{display:flex;align-items:flex-start;gap:10px;border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;cursor:pointer;font-size:14.5px;color:var(--ink);background:var(--ground);transition:border-color .2s ease;text-align:left}
   .wiz-check:hover{border-color:var(--line-strong)}
   .wiz-check input{margin-top:1px;accent-color:var(--accent);width:17px;height:17px;flex:none}
-  .wiz-check span b{color:var(--accent-ink)}
+  .wiz-check span b{color:var(--ink);font-weight:600}
   .wiz-check span i{display:block;font-style:normal;font-size:12.5px;color:var(--ink-faint);margin-top:2px}
   .wiz-check-inline{border:0;padding:0;background:none}
+  /* cases à cocher : blanches, cadre noir, pour qu'on voie qu'elles se cochent */
+  .wiz-check input[type="checkbox"],.wiz-options input[type="checkbox"]{appearance:none;-webkit-appearance:none;width:20px;height:20px;flex:none;margin:1px 0 0;border:2px solid var(--ink);border-radius:5px;background:#fff;cursor:pointer;position:relative;transition:background .15s ease}
+  .wiz-check input[type="checkbox"]::after,.wiz-options input[type="checkbox"]::after{content:"";position:absolute;left:5px;top:2px;width:6px;height:11px;border:solid var(--ink);border-width:0 2.4px 2.4px 0;transform:rotate(45deg) scale(.4);opacity:0;transition:opacity .12s ease,transform .12s ease}
+  .wiz-check input[type="checkbox"]:checked,.wiz-options input[type="checkbox"]:checked{background:#fff}
+  .wiz-check input[type="checkbox"]:checked::after,.wiz-options input[type="checkbox"]:checked::after{opacity:1;transform:rotate(45deg) scale(1)}
+  .wiz-check input[type="checkbox"]:focus-visible,.wiz-options input[type="checkbox"]:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  /* champs obligatoires et oublis */
+  .wiz-fields label .req{color:var(--accent);margin-left:3px}
+  .wiz-fields label .opt{margin-left:5px;font-family:var(--font-body);font-size:11.5px;letter-spacing:0;text-transform:none;color:var(--ink-faint)}
+  .wiz-fields input.is-missing,.wiz-fields select.is-missing,.wiz-fields textarea.is-missing{border-color:#D92D20;background:#FFF6F5}
+  .wiz-fields input.is-missing:focus,.wiz-fields select.is-missing:focus{border-color:#D92D20;box-shadow:0 0 0 3px rgba(217,45,32,.16)}
+  .wiz-fields label.is-missing{color:#D92D20}
+  .wiz-miss{margin-top:14px;font-size:13.5px;color:#D92D20;background:#FFF1F0;border:1px solid #F3B4AE;border-radius:10px;padding:10px 14px}
+  .wiz-req-note{margin-top:14px;font-size:12.5px;color:var(--ink-faint)}
+  .wiz-req-note b{color:var(--accent);font-weight:400}
+  /* packs : rangées homogènes, dernière rangée centrée, et un pack mis en avant */
+  .wiz-packs{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;margin-top:26px}
+  .wiz-packs .wiz-pack{flex:1 1 300px;max-width:366px}
+  .wiz-pack.is-top{border-color:var(--accent);box-shadow:0 10px 30px -18px rgba(255,90,31,.55)}
+  .wiz-packs .wiz-pack .wiz-pack-head{position:relative;padding-top:42px}
+  .pack-flag{position:absolute;top:16px;left:20px;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--accent);padding:3px 9px;border-radius:100px}
   .wiz-opt-badge{position:relative;overflow:visible}
   .badge-fq{position:absolute;top:-9px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--accent);padding:3px 9px;border-radius:100px}
   .wiz-options{margin:22px 0;display:grid;gap:10px}
@@ -775,7 +802,8 @@
   .wiz-done p{color:var(--ink-soft);font-size:14.5px;line-height:1.55;margin:0}
   .wiz-done a{color:var(--accent-ink);font-weight:500;white-space:nowrap}
   @media(max-width:720px){
-    .wiz-packs{grid-template-columns:1fr;gap:12px}
+    .wiz-packs{gap:12px}
+  .wiz-packs .wiz-pack{flex:1 1 100%;max-width:none}
     .wiz-pack{padding:0}
     .wiz-pack-name{font-size:18px}
     .wizard{padding:26px 16px;border-radius:0}
@@ -939,7 +967,7 @@
     <p class="slogan hero-rv">Le <b>BET</b> <b>THER</b>mique d'un monde <em>better</em>.</p>
     <p class="lede hero-rv">Bureau d'étude thermique et fluides.<br>Neuf et rénovation : RE2020, audit énergétique, chauffage, climatisation, ventilation et plomberie sanitaire.</p>
   </div>
-  <a class="scroll-rail" href="#parcours" aria-label="Défiler vers le parcours">
+  <a class="scroll-rail" href="#devis" aria-label="Aller au devis">
     <span class="sr-word">Scroll</span>
     <span class="sr-track"><span class="sr-dot"></span></span>
     <span class="sr-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span>
@@ -947,10 +975,10 @@
 </section>
 
 <!-- ===== STORY ===== -->
-<div class="strip" aria-hidden="true">
+<div class="strip" aria-label="Nos prestations : choisir pour estimer un devis">
   <div class="strip-track">
-    <span>RE2020</span><span>Calcul Bbio</span><span>Calcul Cep</span><span>Étude de ventilation</span><span>Audit énergétique</span><span>Bilan thermique</span><span>Analyse du cycle de vie</span><span>Matériaux biosourcés</span><span>Dimensionnement des fluides</span><span>Solaire thermique</span><span>Pompe à chaleur</span>
-    <span>RE2020</span><span>Calcul Bbio</span><span>Calcul Cep</span><span>Étude de ventilation</span><span>Audit énergétique</span><span>Bilan thermique</span><span>Analyse du cycle de vie</span><span>Matériaux biosourcés</span><span>Dimensionnement des fluides</span><span>Solaire thermique</span><span>Pompe à chaleur</span>
+    <button type="button" class="strip-link" data-nature="Construction neuve" data-pack="re2020-permis">RE2020</button><button type="button" class="strip-link" data-nature="Construction neuve" data-pack="re2020-permis">Calcul Bbio</button><button type="button" class="strip-link" data-nature="Construction neuve" data-pack="re2020-permis">Calcul Cep</button><button type="button" class="strip-link" data-pack="fluides">Étude de ventilation</button><button type="button" class="strip-link" data-nature="Rénovation" data-pack="audit">Audit énergétique</button><button type="button" class="strip-link" data-nature="Rénovation" data-pack="bilan-reno">Bilan thermique</button><button type="button" class="strip-link" data-nature="Construction neuve" data-pack="re2020-complete">Analyse du cycle de vie</button><a class="strip-link" href="construire-biosource.html">Matériaux biosourcés</a><button type="button" class="strip-link" data-pack="fluides">Dimensionnement des fluides</button><button type="button" class="strip-link" data-pack="fluides">Solaire thermique</button><button type="button" class="strip-link" data-pack="fluides">Pompe à chaleur</button>
+    <button type="button" class="strip-link" data-nature="Construction neuve" data-pack="re2020-permis">RE2020</button><button type="button" class="strip-link" data-nature="Construction neuve" data-pack="re2020-permis">Calcul Bbio</button><button type="button" class="strip-link" data-nature="Construction neuve" data-pack="re2020-permis">Calcul Cep</button><button type="button" class="strip-link" data-pack="fluides">Étude de ventilation</button><button type="button" class="strip-link" data-nature="Rénovation" data-pack="audit">Audit énergétique</button><button type="button" class="strip-link" data-nature="Rénovation" data-pack="bilan-reno">Bilan thermique</button><button type="button" class="strip-link" data-nature="Construction neuve" data-pack="re2020-complete">Analyse du cycle de vie</button><a class="strip-link" href="construire-biosource.html">Matériaux biosourcés</a><button type="button" class="strip-link" data-pack="fluides">Dimensionnement des fluides</button><button type="button" class="strip-link" data-pack="fluides">Solaire thermique</button><button type="button" class="strip-link" data-pack="fluides">Pompe à chaleur</button>
   </div>
 </div>
 
@@ -1001,8 +1029,8 @@
         <div class="wiz-q">Choisissez votre pack</div>
         <div class="wiz-hint">Tout ce qui est compris est listé sur chaque carte. Votre tarif est ensuite calculé selon les caractéristiques de votre projet.</div>
         <div class="wiz-opts wiz-packs" data-key="pack" data-single>
-          <button type="button" class="wiz-opt wiz-pack" data-pack="re2020-permis" data-val="RE2020 Permis">
-            <span class="wiz-pack-head"><span class="wiz-pack-name">RE2020 Permis</span><span class="wiz-pack-tag">Nécessaire au dépôt du permis de construire</span><span class="wiz-pack-price" data-price></span></span>
+          <button type="button" class="wiz-opt wiz-pack is-top" data-pack="re2020-permis" data-val="RE2020 Permis">
+            <span class="wiz-pack-head"><span class="pack-flag">Notre recommandation</span><span class="wiz-pack-name">RE2020 Permis</span><span class="wiz-pack-tag">Nécessaire au dépôt du permis de construire</span><span class="wiz-pack-price" data-price></span></span>
             <span class="wiz-pack-cta">Choisir ce pack</span>
             <ul class="wiz-pack-list"><li>Étude thermique réglementaire RE2020</li><li>Calcul Bbio (besoin bioclimatique)</li><li>Calcul DH (confort d'été)</li><li>Calcul Cep &amp; Cep,nr (consommations)</li><li>Conseils d'optimisation</li><li>Attestation thermique de dépôt de PC</li><li>Notice thermique</li></ul>
           </button>
@@ -1031,8 +1059,8 @@
             <span class="wiz-pack-cta">Choisir ce pack</span>
             <ul class="wiz-pack-list"><li>Analyse de l'enveloppe existante</li><li>Calcul des déperditions</li><li>Repérage des ponts thermiques</li><li>Préconisations d'amélioration hiérarchisées</li></ul>
           </button>
-          <button type="button" class="wiz-opt wiz-pack" data-pack="audit" data-val="Audit énergétique volontaire">
-            <span class="wiz-pack-head"><span class="wiz-pack-name">Audit énergétique</span><span class="wiz-pack-tag">Visite + scénarios de travaux chiffrés</span><span class="wiz-pack-price" data-price></span></span>
+          <button type="button" class="wiz-opt wiz-pack is-top" data-pack="audit" data-val="Audit énergétique volontaire">
+            <span class="wiz-pack-head"><span class="pack-flag">Notre recommandation</span><span class="wiz-pack-name">Audit énergétique</span><span class="wiz-pack-tag">Visite + scénarios de travaux chiffrés</span><span class="wiz-pack-price" data-price></span></span>
             <span class="wiz-pack-cta">Choisir ce pack</span>
             <ul class="wiz-pack-list"><li>Visite technique sur site</li><li>État initial du bâtiment</li><li>Analyse des consommations</li><li>Scénarios de travaux chiffrés</li><li>Rapport d'audit complet</li></ul>
           </button>
@@ -1063,7 +1091,7 @@
           <button type="button" class="wiz-opt wiz-opt-badge" data-val="Standard"><span class="badge-fq">Le plus fréquent</span><span class="ol">Standard</span><span class="od">Quelques décrochés, garage, sous-sol, baies vitrées</span></button>
           <button type="button" class="wiz-opt" data-val="Complexe"><span class="ol">Complexe</span><span class="od">Architecture atypique, nombreux volumes, systèmes multiples</span></button>
         </div>
-        <p class="wiz-note-mini">Vous hésitez&nbsp;? Sélectionnez « Standard ». La forme sera vérifiée à réception des plans avant le démarrage de l'étude.</p>
+        <p class="wiz-note-mini">Vous hésitez&nbsp;? Sélectionnez «&nbsp;Standard&nbsp;». La forme sera vérifiée à réception des plans avant le démarrage de l'étude.</p>
       </div>
 
       <!-- STEP 5 : niveaux -->
@@ -1109,11 +1137,11 @@
         <div class="wiz-q">Parlez-nous de vous</div>
         <div class="wiz-hint">Nous revenons vers vous avec le devis détaillé.</div>
         <div class="wiz-fields">
-          <div class="field"><label for="wizPrenom">Prénom</label><input id="wizPrenom" type="text" placeholder="Votre prénom" autocomplete="given-name"></div>
-          <div class="field"><label for="wizNom">Nom</label><input id="wizNom" type="text" placeholder="Votre nom" autocomplete="family-name"></div>
-          <div class="field"><label for="wizTel">Téléphone</label><input id="wizTel" type="tel" inputmode="tel" placeholder="06 12 34 56 78" autocomplete="tel"></div>
-          <div class="field"><label for="wizEmail">Email</label><input id="wizEmail" type="email" required placeholder="vous@email.com" autocomplete="email"></div>
-          <p class="field-full wiz-hint" id="wizTelErr" hidden style="color:#ff8a5c">Ce numéro semble incomplet&nbsp;: 10 chiffres attendus, par exemple 06 12 34 56 78.</p>
+          <div class="field"><label for="wizPrenom">Prénom <span class="opt">(facultatif)</span></label><input id="wizPrenom" type="text" placeholder="Votre prénom" autocomplete="given-name"></div>
+          <div class="field"><label for="wizNom">Nom <span class="req">*</span></label><input id="wizNom" type="text" placeholder="Votre nom" autocomplete="family-name"></div>
+          <div class="field"><label for="wizTel">Téléphone <span class="req">*</span></label><input id="wizTel" type="tel" inputmode="tel" placeholder="06 12 34 56 78" autocomplete="tel"></div>
+          <div class="field"><label for="wizEmail">Email <span class="req">*</span></label><input id="wizEmail" type="email" required placeholder="vous@email.com" autocomplete="email"></div>
+          <p class="field-full wiz-hint" id="wizTelErr" hidden style="color:#ff8a5c">Ce numéro semble incomplet&nbsp;: 10 chiffres attendus, par exemple 06&nbsp;12&nbsp;34&nbsp;56&nbsp;78.</p>
           <p class="field-full wiz-hint" id="wizMailErr" hidden style="color:#ff8a5c">Cette adresse e-mail semble incomplète&nbsp;: c’est par là que nous vous répondons.</p>
           <div class="field field-full"><label for="wizProfil">Vous êtes</label>
             <select id="wizProfil">
@@ -1126,6 +1154,11 @@
               <option value="Autre professionnel">Autre professionnel</option>
             </select>
           </div>
+          <div class="field field-full" id="wizProfilAutreWrap" hidden>
+            <label for="wizProfilAutre">Précisez <span class="req">*</span></label>
+            <input id="wizProfilAutre" type="text" placeholder="Votre activité">
+          </div>
+          
           <div class="field field-full"><label for="wizArchiSuivi">Projet suivi par un architecte / maître d'œuvre&nbsp;?</label>
             <select id="wizArchiSuivi">
               <option value="Non">Non</option>
@@ -1134,10 +1167,12 @@
             </select>
           </div>
           <div class="field field-full" id="wizArchiWrap" hidden>
-            <label for="wizArchi">Architecte / agence</label>
+            <label for="wizArchi">Architecte / agence <span class="opt">(facultatif)</span></label>
             <input id="wizArchi" type="text" placeholder="Nom, email ou téléphone de l'architecte">
             <label class="wiz-check wiz-check-inline" style="margin-top:10px"><input type="checkbox" id="wizArchiAuth"><span>J'autorise BET·THER à échanger directement avec mon architecte / maître d'œuvre au sujet de cette étude.</span></label>
           </div>
+          <p class="field-full wiz-miss" id="wizMiss" hidden></p>
+          <p class="field-full wiz-req-note">Les champs marqués d’un <b>*</b> sont obligatoires.</p>
         </div>
       </div>
 
@@ -1167,7 +1202,7 @@
 
           <div class="wiz-recap" id="wizRecap"></div>
           <div class="wiz-includes" id="wizIncludes"></div>
-          <p class="wiz-disclaimer" id="wizDisclaimer">Estimation indicative, confirmée après réception de vos documents, devis sans engagement. Prix hors taxes, TVA 20 % en sus.</p>
+          <p class="wiz-disclaimer" id="wizDisclaimer">Estimation indicative, confirmée après réception de vos documents, devis sans engagement. Prix hors taxes, TVA 20&nbsp;% en sus.</p>
         </div>
       </div>
 
@@ -1193,7 +1228,7 @@
             <h3>Demande transmise</h3>
             <p>Votre devis vient d'être téléchargé et votre demande nous a été envoyée. Nous revenons vers vous sous 24&nbsp;h. Une question&nbsp;? <a href="tel:+33618137645">06&nbsp;18&nbsp;13&nbsp;76&nbsp;45</a>.</p>
           </div>
-          <p class="wiz-disclaimer" style="text-align:center">En cliquant, votre devis PDF est téléchargé et votre demande nous est transmise pour finaliser l'étude. Gratuit et sans engagement. Prix hors taxes, TVA 20 % en sus.</p>
+          <p class="wiz-disclaimer" style="text-align:center">En cliquant, votre devis PDF est téléchargé et votre demande nous est transmise pour finaliser l'étude. Gratuit et sans engagement. Prix hors taxes, TVA 20&nbsp;% en sus.</p>
         </div>
       </div>
 
@@ -1207,7 +1242,7 @@
     </div>
 
     <div class="cbtns" style="margin-top:22px">
-      <a class="btn btn-ghost" href="tel:+33618137645">Ou appelez directement le 06 18 13 76 45</a>
+      <a class="btn btn-ghost" href="tel:+33618137645">Ou appelez directement le 06&nbsp;18&nbsp;13&nbsp;76&nbsp;45</a>
     </div>
   </div>
 </section>
@@ -1361,7 +1396,7 @@
       <h2>Parlons de votre projet.</h2>
       <p>Une question, une étude, un devis&nbsp;? Écrivez-nous, nous revenons vers vous sous 24&nbsp;h, avec une réponse claire. Devis gratuit et sans engagement.</p>
       <ul class="cc-info">
-        <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5c0 8.3 6.7 15 15 15 .9 0 1.7-.7 1.8-1.6l.2-2.1a1.5 1.5 0 0 0-1-1.6l-3-1a1.5 1.5 0 0 0-1.6.4l-.9 1a12 12 0 0 1-4.9-4.9l1-.9a1.5 1.5 0 0 0 .4-1.6l-1-3a1.5 1.5 0 0 0-1.6-1L4.6 3.2A1.8 1.8 0 0 0 3 5Z"/></svg></span><div><div class="l">Téléphone</div><a class="v" href="tel:+33618137645">06 18 13 76 45</a></div></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5c0 8.3 6.7 15 15 15 .9 0 1.7-.7 1.8-1.6l.2-2.1a1.5 1.5 0 0 0-1-1.6l-3-1a1.5 1.5 0 0 0-1.6.4l-.9 1a12 12 0 0 1-4.9-4.9l1-.9a1.5 1.5 0 0 0 .4-1.6l-1-3a1.5 1.5 0 0 0-1.6-1L4.6 3.2A1.8 1.8 0 0 0 3 5Z"/></svg></span><div><div class="l">Téléphone</div><a class="v" href="tel:+33618137645">06&nbsp;18&nbsp;13&nbsp;76&nbsp;45</a></div></li>
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><div><div class="l">Email</div><a class="v" href="mailto:lili.brendle@betther.tech">lili.brendle@betther.tech</a></div></li>
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><div class="l">Disponibilité</div><span class="v">Réponse sous 24&nbsp;h · devis gratuit</span></div></li>
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><div class="l">Zone d'intervention</div><span class="v">Reims, Paris, Strasbourg, Colmar, Besançon, Lons-le-Saunier, Fontainebleau, Gap, Marseille — et alentours</span></div></li>
@@ -1383,7 +1418,7 @@
       <div class="cc-ok" id="ccOk">
         <div class="chk"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7"/></svg></div>
         <h3>Message envoyé</h3>
-        <p>Merci, nous revenons vers vous sous 24&nbsp;h. Une urgence&nbsp;? Appelez le <b>06 18 13 76 45</b>.</p>
+        <p>Merci, nous revenons vers vous sous 24&nbsp;h. Une urgence&nbsp;? Appelez le <b>06&nbsp;18&nbsp;13&nbsp;76&nbsp;45</b>.</p>
       </div>
     </form>
   </div>
@@ -1411,12 +1446,12 @@
         <ul>
           <li><b>Dénomination sociale :</b> BETTHER</li>
           <li><b>Forme juridique :</b> EURL (société à responsabilité limitée à associé unique)</li>
-          <li><b>Capital social :</b> 10 000 €</li>
+          <li><b>Capital social :</b> 10&nbsp;000&nbsp;€</li>
           <li><b>Siège social :</b> 136 C rue des Capucins, 51100 Reims, France</li>
-          <li><b>RCS :</b> Reims 109 517 144 — <b>SIREN :</b> 109 517 144 — <b>SIRET (siège) :</b> 109 517 144 00019</li>
-          <li><b>N° TVA intracommunautaire :</b> FR 28 109517144 — BETTHER est assujettie à la TVA (régime réel simplifié, taux normal 20 %)</li>
+          <li><b>RCS :</b> Reims 109&nbsp;517 144 — <b>SIREN :</b> 109&nbsp;517 144 — <b>SIRET (siège) :</b> 109&nbsp;517 144 00019</li>
+          <li><b>N° TVA intracommunautaire :</b> FR 28 109517144 — BETTHER est assujettie à la TVA (régime réel simplifié, taux normal 20&nbsp;%)</li>
           <li><b>Gérante et directrice de la publication :</b> Lili Brendlé</li>
-          <li><b>Contact :</b> <a href="mailto:lili.brendle@betther.tech">lili.brendle@betther.tech</a> — <a href="tel:+33618137645">06 18 13 76 45</a></li>
+          <li><b>Contact :</b> <a href="mailto:lili.brendle@betther.tech">lili.brendle@betther.tech</a> — <a href="tel:+33618137645">06&nbsp;18&nbsp;13&nbsp;76&nbsp;45</a></li>
         </ul>
       </section>
       <section>
@@ -1477,7 +1512,7 @@
       <section>
         <div class="pd-kicker">01 — Objet</div>
         <h2>Champ d'application</h2>
-        <p>Les présentes conditions générales régissent les prestations d'ingénierie thermique et fluides réalisées par <b>BETTHER, EURL</b> (le « Prestataire ») pour tout client, particulier ou professionnel (le « Client »). Toute commande implique leur acceptation sans réserve. Elles prévalent sur les conditions d'achat du Client, sauf accord écrit contraire.</p>
+        <p>Les présentes conditions générales régissent les prestations d'ingénierie thermique et fluides réalisées par <b>BETTHER, EURL</b> (le «&nbsp;Prestataire&nbsp;») pour tout client, particulier ou professionnel (le «&nbsp;Client&nbsp;»). Toute commande implique leur acceptation sans réserve. Elles prévalent sur les conditions d'achat du Client, sauf accord écrit contraire.</p>
       </section>
       <section>
         <div class="pd-kicker">02 — Devis</div>
@@ -1485,7 +1520,7 @@
         <ul>
           <li>L'<b>estimation en ligne</b> proposée sur le site est <b>indicative et non contractuelle</b>. Elle est calculée à partir des seules informations saisies par le Client.</li>
           <li>Seul le <b>devis écrit</b> émis par le Prestataire, après examen des plans et documents, a valeur contractuelle.</li>
-          <li>Le devis est <b>valable 30 jours</b> à compter de sa date d'émission.</li>
+          <li>Le devis est <b>valable 30&nbsp;jours</b> à compter de sa date d'émission.</li>
           <li>Le contrat est formé à réception du <b>devis daté, signé et accepté</b> par le Client (signature manuscrite ou électronique, ou acceptation écrite explicite par e-mail).</li>
           <li>Le Prestataire se réserve le droit d'ajuster le prix si les caractéristiques réelles du projet diffèrent des éléments déclarés (surface, complexité, nombre de niveaux, systèmes). Tout ajustement fait l'objet d'un devis rectificatif soumis à acceptation.</li>
         </ul>
@@ -1494,7 +1529,7 @@
         <div class="pd-kicker">03 — Prix</div>
         <h2>Tarifs</h2>
         <ul>
-          <li>Les prix sont exprimés en euros <b>hors taxes (HT)</b>. BETTHER étant assujettie à la TVA (régime réel simplifié), la <b>TVA au taux normal de 20 %</b> s'ajoute au montant hors taxes. Le devis indique le montant HT, la TVA et le total TTC.</li>
+          <li>Les prix sont exprimés en euros <b>hors taxes (HT)</b>. BETTHER étant assujettie à la TVA (régime réel simplifié), la <b>TVA au taux normal de 20&nbsp;%</b> s'ajoute au montant hors taxes. Le devis indique le montant HT, la TVA et le total TTC.</li>
           <li>Les éventuelles <b>offres promotionnelles</b> (ex. offre de lancement) sont valables pour la durée annoncée et ne sont pas cumulables, sauf mention contraire.</li>
           <li>Les <b>frais de déplacement</b> éventuels sont indiqués sur le devis lorsqu'une visite sur site est nécessaire.</li>
         </ul>
@@ -1506,7 +1541,7 @@
           <li>Sauf mention contraire au devis, le règlement est dû <b>à la commande</b>, à réception du devis signé.</li>
           <li>Moyens acceptés : <b>virement bancaire, chèque ou Wero</b>.</li>
           <li><b>Retard de paiement :</b> toute somme non réglée à l'échéance entraîne de plein droit des pénalités de retard au taux d'intérêt appliqué par la BCE à son opération de refinancement la plus récente, majoré de 10 points de pourcentage.</li>
-          <li>Pour les Clients professionnels, une <b>indemnité forfaitaire de 40 €</b> pour frais de recouvrement est due (art. L.441-10 et D.441-5 du Code de commerce), sans préjudice d'une indemnisation complémentaire sur justificatifs.</li>
+          <li>Pour les Clients professionnels, une <b>indemnité forfaitaire de 40&nbsp;€</b> pour frais de recouvrement est due (art. L.441-10 et D.441-5 du Code de commerce), sans préjudice d'une indemnisation complémentaire sur justificatifs.</li>
         </ul>
       </section>
       <section>
@@ -1525,14 +1560,14 @@
         <h2>Reprises et variantes</h2>
         <ul>
           <li>Une <b>première modification</b> de l'étude, après remise des livrables, est <b>incluse</b> lorsqu'elle porte sur des ajustements mineurs.</li>
-          <li>Toute modification supplémentaire, ou toute reprise liée à un changement de projet, de matériaux ou de systèmes, est facturée <b>à partir de 90 €</b> selon l'ampleur des reprises, sur devis complémentaire.</li>
+          <li>Toute modification supplémentaire, ou toute reprise liée à un changement de projet, de matériaux ou de systèmes, est facturée <b>à partir de 90&nbsp;€</b> selon l'ampleur des reprises, sur devis complémentaire.</li>
           <li>Les variantes énergétiques supplémentaires demandées en cours d'étude font l'objet d'un supplément indiqué au devis.</li>
         </ul>
       </section>
       <section>
         <div class="pd-kicker">08 — Rétractation</div>
         <h2>Droit de rétractation (clients consommateurs)</h2>
-        <p>Lorsque le contrat est conclu à distance ou hors établissement avec un Client <b>consommateur</b>, celui-ci dispose d'un délai de <b>14 jours</b> à compter de la conclusion du contrat pour exercer son droit de rétractation, sans motif ni pénalité (art. L.221-18 du Code de la consommation).</p>
+        <p>Lorsque le contrat est conclu à distance ou hors établissement avec un Client <b>consommateur</b>, celui-ci dispose d'un délai de <b>14&nbsp;jours</b> à compter de la conclusion du contrat pour exercer son droit de rétractation, sans motif ni pénalité (art. L.221-18 du Code de la consommation).</p>
         <p>Si le Client demande expressément que l'exécution de la prestation commence <b>avant la fin de ce délai</b>, il reconnaît qu'il devra régler le montant correspondant au service déjà fourni en cas de rétractation. Lorsque la prestation a été <b>pleinement exécutée</b> avant la fin du délai avec son accord préalable exprès et sa renonciation expresse au droit de rétractation, celui-ci ne peut plus être exercé (art. L.221-25 et L.221-28).</p>
         <p>Pour se rétracter, le Client notifie sa décision par une déclaration dénuée d'ambiguïté, adressée par e-mail à <a href="mailto:lili.brendle@betther.tech">lili.brendle@betther.tech</a> ou par courrier au siège social. Il peut utiliser le formulaire type ci-dessous, sans obligation.</p>
         <h3>Formulaire type de rétractation</h3>
@@ -1597,7 +1632,7 @@
       <section>
         <div class="pd-kicker">01 — Responsable</div>
         <h2>Qui traite vos données</h2>
-        <p><b>BETTHER, EURL</b> — 136 C rue des Capucins, 51100 Reims — <a href="mailto:lili.brendle@betther.tech">lili.brendle@betther.tech</a> — 06 18 13 76 45.</p>
+        <p><b>BETTHER, EURL</b> — 136 C rue des Capucins, 51100 Reims — <a href="mailto:lili.brendle@betther.tech">lili.brendle@betther.tech</a> — 06&nbsp;18&nbsp;13&nbsp;76&nbsp;45.</p>
       </section>
       <section>
         <div class="pd-kicker">02 — Principe</div>
@@ -1623,8 +1658,8 @@
         <div class="pd-kicker">04 — Conservation</div>
         <h2>Durées</h2>
         <ul>
-          <li><b>Demandes sans suite :</b> jusqu'à 3 ans après le dernier contact.</li>
-          <li><b>Clients :</b> durée de la relation contractuelle, puis archivage selon les délais légaux (notamment 10 ans pour les pièces comptables et les études, au titre de la responsabilité professionnelle).</li>
+          <li><b>Demandes sans suite :</b> jusqu'à 3&nbsp;ans après le dernier contact.</li>
+          <li><b>Clients :</b> durée de la relation contractuelle, puis archivage selon les délais légaux (notamment 10&nbsp;ans pour les pièces comptables et les études, au titre de la responsabilité professionnelle).</li>
         </ul>
       </section>
       <section>
@@ -1659,7 +1694,7 @@
 <footer>
   <div class="wrap foot-in">
     <span class="foot-slogan">Le BET THERmique d'un monde better</span>
-    <span>Bases principales : Reims et Grand Est · 06 18 13 76 45</span>
+    <span>Bases principales : Reims et Grand Est · 06&nbsp;18&nbsp;13&nbsp;76&nbsp;45</span>
     <span>© <span id="yr"></span> BETTHER</span>
   </div>
   <div class="wrap foot-legal">
@@ -1849,7 +1884,7 @@
         var gr=storyGrid.getBoundingClientRect();
         var offset = gr.top>0 ? -gr.top : 0;
         viz.parentNode.style.transform = 'translateY('+offset.toFixed(1)+'px)';
-        viz.parentNode.classList.toggle('viz-on', gr.top < vh*0.45 && gr.bottom > vh*0.45);
+        viz.parentNode.classList.toggle('viz-on', gr.top < vh*0.95 && gr.bottom > vh*0.05);
       }
     }
 
@@ -1864,7 +1899,7 @@
       var ch=document.getElementById('chapters'), sv=viz.parentNode;
       if(sv){ sv.style.transform=''; sv.classList.remove('viz-on'); }
       if(ch&&sv){ var cr=ch.getBoundingClientRect();
-        sv.classList.toggle('viz-show', cr.top < vh*0.5 && cr.bottom > vh*0.15); }
+        sv.classList.toggle('viz-show', cr.top < vh*0.95 && cr.bottom > vh*0.05); }
     } else if(viz.parentNode){ viz.parentNode.classList.remove('viz-show'); }
   }
 
@@ -1987,7 +2022,7 @@
       if(cur===4)return !!answers.complexite;
       if(cur===5)return !!answers.niveaux;
       if(cur===6)return !!(val('wizVille')||val('wizCP'));
-      if(cur===8)return !!(val('wizNom')&&telOk(val('wizTel'))&&mailOk(val('wizEmail')));
+      if(cur===8)return !!(val('wizNom')&&telOk(val('wizTel'))&&mailOk(val('wizEmail'))&&profilOk());
       return true;
     }
     function refreshNext(){
@@ -2037,7 +2072,7 @@
         refreshNext();
         // auto-avance sauf si un sous-champ doit être rempli (collectif → logements)
         var wait = (key==='batiment' && answers.batiment==='Immeuble collectif');
-        if(!wait) setTimeout(function(){ if(cur<11 && ready()) show(cur+1); },260);
+        if(!wait) setTimeout(function(){ if(cur<11 && ready()) show(etapeSuivante()); },260);
       });
     });
 
@@ -2064,7 +2099,7 @@
     function deplFromKm(km){ if(km<=25)return 0; if(km<=50)return 60; if(km<=100)return 120; if(km<=150)return 200; return null; }
     var geoTimer=null;
     function geocode(){
-      var cp=val('wizCP'); answers.deplacement=0; answers.deplacementSurDevis=false;
+      var cp=val('wizCP').replace(/\D/g,''); answers.deplacement=0; answers.deplacementSurDevis=false;
       if(!/^\d{5}$/.test(cp)) return;
       try{
         fetch('https://api-adresse.data.gouv.fr/search/?q='+encodeURIComponent(cp)+'&type=municipality&limit=1')
@@ -2090,8 +2125,25 @@
       if(list) list.innerHTML=answers.files.map(function(n){return '<span>'+String(n).replace(/[<>&]/g,'')+'</span>';}).join('');
     }); }
 
-    nextBtn.addEventListener('click',function(){ if(ready()) show(Math.min(cur+1,11)); });
-    backBtn.addEventListener('click',function(){ if(cur>0) show(cur-1); });
+    function etapeSuivante(){ var i=cur+1; while(sautees[i] && i<11) i++; return Math.min(i,11); }
+    function etapePrecedente(){ var i=cur-1; while(sautees[i] && i>0) i--; return Math.max(i,0); }
+    /* Le bas de la carte de contact s'aligne sur le bas de la liste des coordonnées. */
+    (function(){
+      var form=document.querySelector('.cc-form'), infos=document.querySelector('.cc-info');
+      if(!form||!infos) return;
+      function aligne(){
+        form.style.minHeight='';
+        if(window.innerWidth<=820) return;
+        var h=infos.getBoundingClientRect().bottom-form.getBoundingClientRect().top;
+        if(h>form.offsetHeight) form.style.minHeight=Math.round(h)+'px';
+      }
+      window.addEventListener('load',aligne);
+      window.addEventListener('resize',aligne);
+      aligne();
+    })();
+
+    nextBtn.addEventListener('click',function(){ if(ready()){ show(etapeSuivante()); } else { signaleManques(); } });
+    backBtn.addEventListener('click',function(){ if(cur>0) show(etapePrecedente()); });
 
     function esc(s){return String(s).replace(/[<>&]/g,'');}
     function render(){
@@ -2144,10 +2196,10 @@
         +'\nSurface : '+(val('wizSurf')?val('wizSurf')+' m²':'-')
         +'\nLocalisation : '+([val('wizAdr'),val('wizCP'),val('wizVille')].filter(Boolean).join(' ')||'-')
         +'\nNiveaux : '+(answers.niveaux||'-')
-        +'\nComplexité : '+(answers.complexite||'-')
+        +'\nComplexité : '+(answers.complexite||'-')+((answers.carac&&answers.carac.length)?('\nCaractéristiques : '+answers.carac.join(', ')):'')+(answers.deplacementSurDevis?'\nDéplacement : hors zone, sur devis':(answers.deplacement?('\nDéplacement : '+answers.deplacement+' €'):''))+((answers.files&&answers.files.length)?'':'')
         +(opts.length?('\nOptions : '+opts.join(', ')):'')
         +'\nContact : '+([val('wizPrenom'),val('wizNom')].filter(Boolean).join(' ')||'-')+' · '+(val('wizTel')||'-')+' · '+(val('wizEmail')||'-')
-        +'\nProfil : '+(val('wizProfil')||'-')
+        +'\nProfil : '+(val('wizProfil')||'-')+(val('wizProfilAutre')?(' — '+val('wizProfilAutre')):'')
         +'\nArchitecte : '+(val('wizArchiSuivi')||'-')+(val('wizArchi')?(' — '+val('wizArchi')):'')+(chk('wizArchiAuth')?' (contact autorisé)':'')
         +'\nCommentaires : '+(val('wizComm')||'-')
         +'\nDocuments : '+(answers.files.length?answers.files.join(', '):'à transmettre');
@@ -2304,6 +2356,105 @@
       });
     });
 
+    /* ---- Champs obligatoires, formatage et oublis (étape Coordonnées) ---- */
+    function profilAutre(){ var sel=document.getElementById('wizProfil'); return !!(sel && sel.value==='Autre professionnel'); }
+    function profilOk(){ return !profilAutre() || !!val('wizProfilAutre'); }
+    var selProfil=document.getElementById('wizProfil');
+    if(selProfil){ selProfil.addEventListener('change',function(){
+      var w=document.getElementById('wizProfilAutreWrap'); if(w) w.hidden = !profilAutre();
+      refreshNext();
+    }); }
+    var champAutre=document.getElementById('wizProfilAutre');
+    if(champAutre) champAutre.addEventListener('input',refreshNext);
+
+    /* Espaces automatiques : 06 12 34 56 78 et 51 100 */
+    function grouper(brut,tailles){
+      var d=String(brut||'').replace(/\D/g,''), out=[], i=0;
+      tailles.forEach(function(t){ if(i<d.length){ out.push(d.substr(i,t)); i+=t; } });
+      if(i<d.length) out.push(d.substr(i));
+      return out.join('\u202f');
+    }
+    function formateEnSaisie(el,tailles,maxi){
+      if(!el) return;
+      el.addEventListener('input',function(){
+        var finDeLigne = el.selectionStart===el.value.length;
+        var d=el.value.replace(/\D/g,'').substr(0,maxi);
+        if(/^\+/.test(el.value.trim())) return; // format international : on laisse tel quel
+        el.value=grouper(d,tailles);
+        if(finDeLigne){ try{ el.selectionStart=el.selectionEnd=el.value.length; }catch(e){} }
+      });
+    }
+    formateEnSaisie(document.getElementById('wizTel'),[2,2,2,2,2],10);
+    formateEnSaisie(document.getElementById('wizCP'),[2,3],5);
+
+    /* Rouge sur ce qui manque quand on clique sur Continuer */
+    var OBLIGATOIRES=[
+      {id:'wizNom',   nom:'votre nom',                ok:function(){return !!val('wizNom');}},
+      {id:'wizTel',   nom:'votre téléphone',          ok:function(){return telOk(val('wizTel'));}},
+      {id:'wizEmail', nom:'votre adresse e-mail',     ok:function(){return mailOk(val('wizEmail'));}},
+      {id:'wizProfilAutre', nom:'votre activité',     ok:function(){return profilOk();}, siVisible:true}
+    ];
+    function nettoieChamp(el){
+      if(!el) return;
+      el.classList.remove('is-missing');
+      var lab=el.parentNode&&el.parentNode.querySelector('label'); if(lab) lab.classList.remove('is-missing');
+    }
+    OBLIGATOIRES.forEach(function(c){
+      var el=document.getElementById(c.id);
+      if(el) el.addEventListener('input',function(){ nettoieChamp(el); var m=document.getElementById('wizMiss'); if(m&&OBLIGATOIRES.every(function(x){return x.ok();})) m.hidden=true; });
+    });
+    function signaleManques(){
+      if(cur!==8) return;
+      var manques=[], boite=document.getElementById('wizMiss'), premier=null;
+      OBLIGATOIRES.forEach(function(c){
+        var el=document.getElementById(c.id); if(!el) return;
+        if(c.siVisible && !profilAutre()){ nettoieChamp(el); return; }
+        if(c.ok()){ nettoieChamp(el); return; }
+        el.classList.add('is-missing');
+        var lab=el.parentNode&&el.parentNode.querySelector('label'); if(lab) lab.classList.add('is-missing');
+        manques.push(c.nom); if(!premier) premier=el;
+      });
+      if(boite){
+        if(manques.length){
+          boite.textContent='Il manque '+(manques.length>1
+            ? manques.slice(0,-1).join(', ')+' et '+manques[manques.length-1]
+            : manques[0])+' pour que nous puissions vous répondre.';
+          boite.hidden=false;
+        } else { boite.hidden=true; }
+      }
+      if(premier) premier.focus();
+    }
+
+    /* Bandeau défilant : un mot-clé ouvre le simulateur avec la prestation déjà choisie. */
+    function marquerOption(cle,valeur){
+      var opts=wiz.querySelector('.wiz-opts[data-key="'+cle+'"]'); if(!opts) return;
+      opts.querySelectorAll('.wiz-opt').forEach(function(x){
+        x.classList.toggle('sel', x.getAttribute(cle==='pack'?'data-pack':'data-val')===valeur);
+      });
+    }
+    var sautees={};
+    var strip=document.querySelector('.strip');
+    if(strip){
+      // sur mobile le bandeau continue de défiler sous le doigt : on le fige au premier contact
+      strip.addEventListener('touchstart',function(){ strip.classList.add('is-paused'); },{passive:true});
+      strip.addEventListener('click',function(e){
+        var b=e.target.closest('button.strip-link'); if(!b) return;
+        var nat=b.getAttribute('data-nature'), pk=b.getAttribute('data-pack');
+        sautees={};
+        if(nat){ answers.nature=nat; marquerOption('nature',nat); sautees[1]=true; }
+        if(pk){ answers.pack=pk; marquerOption('pack',pk); sautees[2]=true; }
+        filterPacks();
+        show(0);
+        // on change l'étape d'abord : la hauteur du bloc bouge, sinon le défilement tombe au milieu
+        // scrollIntoView, et pas window.scrollTo : la page peut être affichée dans un cadre
+        // (aperçu, intégration) où c'est le document parent qui défile.
+        var d=document.getElementById('devis');
+        if(d) requestAnimationFrame(function(){ requestAnimationFrame(function(){
+          d.scrollIntoView({behavior:'smooth',block:'start'});
+        }); });
+      });
+    }
+
     show(0);
   })();
 
@@ -2358,6 +2509,19 @@
         .then(function(r){return r.json();}).then(function(j){return !!(j&&j.success);})
         .catch(function(){return false;});
     }
+
+    /* Espaces automatiques dans le numéro de téléphone */
+    (function(){
+      var el=document.getElementById('ccTel'); if(!el) return;
+      el.addEventListener('input',function(){
+        if(/^\+/.test(el.value.trim())) return;
+        var d=el.value.replace(/\D/g,'').substr(0,10), out=[];
+        for(var i=0;i<d.length;i+=2) out.push(d.substr(i,2));
+        var fin = el.selectionStart===el.value.length;
+        el.value=out.join('\u202f');
+        if(fin){ try{ el.selectionStart=el.selectionEnd=el.value.length; }catch(e){} }
+      });
+    })();
     form.addEventListener('submit',function(e){
       e.preventDefault();
       var nom=val('ccNom'), tel=val('ccTel'), email=val('ccEmail'), msg=val('ccMsg');
@@ -2460,5 +2624,6 @@
 </script>
 <!-- Mesure d'audience Cloudflare Web Analytics : sans cookie, sans profilage. -->
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "069df0fc733046dd89e20aee95884609"}'></script>
+<script src="lexique.js" defer></script>
 </body>
 </html>

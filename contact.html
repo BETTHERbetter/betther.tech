@@ -39,7 +39,7 @@
 <section class="phero thermbg" id="devis"><div class="wrap">
   <span class="eyebrow">Contact · Devis gratuit</span>
   <h1>Parlons de votre projet.</h1>
-  <p class="lead">Une question, une étude, un devis ? Écrivez-nous, nous revenons vers vous sous <b>24 h</b>, avec une réponse claire. Devis gratuit et sans engagement.</p>
+  <p class="lead">Une question, une étude, un devis ? Écrivez-nous, nous revenons vers vous sous <b>24&nbsp;h</b>, avec une réponse claire. Devis gratuit et sans engagement.</p>
 </div></section>
 
 <section class="sec tone-light thermbg-light"><div class="wrap cgrid">
@@ -48,15 +48,15 @@
     <img src="logo.png" alt="BETTHER" class="cinfo-logo">
     <p class="sub">Bureau d'étude thermique et fluides, bases principales à Reims &amp; Paris, déplacements possibles.</p>
     <ul class="cinfo">
-      <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5c0 8.3 6.7 15 15 15 .9 0 1.7-.7 1.8-1.6l.2-2.1a1.5 1.5 0 0 0-1-1.6l-3-1a1.5 1.5 0 0 0-1.6.4l-.9 1a12 12 0 0 1-4.9-4.9l1-.9a1.5 1.5 0 0 0 .4-1.6l-1-3a1.5 1.5 0 0 0-1.6-1L4.6 3.2A1.8 1.8 0 0 0 3 5Z"/></svg></span><div><div class="l">Téléphone</div><a class="v" href="tel:+33618137645">06 18 13 76 45</a></div></li>
+      <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5c0 8.3 6.7 15 15 15 .9 0 1.7-.7 1.8-1.6l.2-2.1a1.5 1.5 0 0 0-1-1.6l-3-1a1.5 1.5 0 0 0-1.6.4l-.9 1a12 12 0 0 1-4.9-4.9l1-.9a1.5 1.5 0 0 0 .4-1.6l-1-3a1.5 1.5 0 0 0-1.6-1L4.6 3.2A1.8 1.8 0 0 0 3 5Z"/></svg></span><div><div class="l">Téléphone</div><a class="v" href="tel:+33618137645">06&nbsp;18&nbsp;13&nbsp;76&nbsp;45</a></div></li>
       <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><div><div class="l">Email</div><a class="v" href="mailto:lili.brendle@betther.tech">lili.brendle@betther.tech</a></div></li>
-      <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><div class="l">Disponibilité</div><span class="v">Réponse sous 24 h · devis gratuit</span></div></li>
+      <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><div class="l">Disponibilité</div><span class="v">Réponse sous 24&nbsp;h · devis gratuit</span></div></li>
       <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><div class="l">Zone d'intervention</div><span class="v">Reims, Paris, Strasbourg, Colmar, Besançon, Lons-le-Saunier, Fontainebleau, Gap, Marseille — et alentours</span></div></li>
     </ul>
   </div>
   <form class="form" id="ccForm">
     <div style="font-family:var(--font-display);font-size:22px">Demander un devis</div>
-    <p style="color:var(--ink-soft);font-size:14px;margin-top:6px">Décrivez votre projet, nous revenons vers vous sous 24 h.</p>
+    <p style="color:var(--ink-soft);font-size:14px;margin-top:6px">Décrivez votre projet, nous revenons vers vous sous 24&nbsp;h.</p>
     <label for="n">Nom</label><input id="n" type="text" placeholder="Votre nom">
     <label for="t">Téléphone</label><input id="t" type="tel" required inputmode="tel" placeholder="06 12 34 56 78">
     <label for="e">Email</label><input id="e" type="email" required placeholder="vous@email.com">
@@ -67,7 +67,7 @@
 </div></section>
 
 <footer><div class="wrap">
-  <div class="foot-in"><span class="foot-slogan">Le BET THERmique d'un monde better</span><span>Bases principales : Reims et Grand Est · 06 18 13 76 45</span><span>© 2026 BETTHER</span></div>
+  <div class="foot-in"><span class="foot-slogan">Le BET THERmique d'un monde better</span><span>Bases principales : Reims et Grand Est · 06&nbsp;18&nbsp;13&nbsp;76&nbsp;45</span><span>© 2026 BETTHER</span></div>
   <div class="foot-legal"><a href="index.html#legal-mentions">Mentions légales</a><a href="index.html#legal-cgv">CGV</a><a href="index.html#legal-confidentialite">Confidentialité</a></div>
 </div></footer>
 <script>
@@ -84,6 +84,18 @@
         .then(function(r){return r.json();}).then(function(j){return !!(j&&j.success);})
         .catch(function(){return false;});
     }
+    /* Espaces automatiques dans le numéro de téléphone */
+    (function(){
+      var el=document.getElementById('t'); if(!el) return;
+      el.addEventListener('input',function(){
+        if(/^\+/.test(el.value.trim())) return;
+        var d=el.value.replace(/\D/g,'').substr(0,10), out=[];
+        for(var i=0;i<d.length;i+=2) out.push(d.substr(i,2));
+        var fin = el.selectionStart===el.value.length;
+        el.value=out.join('\u202f');
+        if(fin){ try{ el.selectionStart=el.selectionEnd=el.value.length; }catch(e){} }
+      });
+    })();
     f.addEventListener('submit',function(e){
       e.preventDefault();
       var body='Bonjour BETTHER,'
@@ -124,5 +136,6 @@
 </script>
 <!-- Mesure d'audience Cloudflare Web Analytics : sans cookie, sans profilage. -->
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "069df0fc733046dd89e20aee95884609"}'></script>
+<script src="lexique.js" defer></script>
 </body>
 </html>
