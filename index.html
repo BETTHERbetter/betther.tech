@@ -828,6 +828,13 @@
   }
   @media(max-width:400px){.wiz-opts{grid-template-columns:1fr}}
   /* ===== CONTACT CLASSIQUE ===== */
+  .qui{display:flex;gap:18px;align-items:flex-start;margin-top:26px;padding:18px;border:1px solid var(--line);border-radius:16px;background:color-mix(in srgb,var(--surface) 70%,transparent)}
+  .qui-photo{width:92px;height:92px;border-radius:50%;object-fit:cover;flex:0 0 auto;border:2px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+  .qui-k{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink)}
+  .qui-txt p,.ccontact-intro .qui-txt p{margin-top:8px;font-size:14.5px;line-height:1.6;color:var(--ink-soft);max-width:none}
+  .qui-txt p.qui-nom,.ccontact-intro .qui-txt p.qui-nom{margin-top:6px;color:var(--ink);font-size:15.5px}
+  .qui-txt p.qui-nom b{font-weight:600}
+  @media(max-width:520px){.qui{flex-direction:column;gap:12px}.qui-photo{width:96px;height:96px}}
   .ccontact{padding:clamp(72px,10vw,120px) 0;position:relative;z-index:2;border-top:1px solid var(--line)}
   .ccontact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,72px);align-items:start}
   .ccontact-intro h2{font-family:var(--font-display);font-size:clamp(30px,4.4vw,52px);margin-top:14px;letter-spacing:-.015em;text-wrap:balance}
@@ -1454,6 +1461,15 @@
       <span class="eyebrow">Contact</span>
       <h2>Parlons de votre projet.</h2>
       <p>Une question, une étude, un devis&nbsp;? Écrivez-nous, nous revenons vers vous sous 24&nbsp;h, avec une réponse claire. Devis gratuit et sans engagement.</p>
+      <div class="qui">
+        <img class="qui-photo" src="media/lili-brendle.jpg" width="480" height="480" alt="Lili Brendlé, gérante de BETTHER" loading="lazy" decoding="async">
+        <div class="qui-txt">
+          <div class="qui-k">Qui répond à vos demandes</div>
+          <p class="qui-nom"><b>Lili Brendlé</b>, thermicienne et gérante de BETTHER.</p>
+          <p>C'est elle qui décroche le téléphone, lit votre demande, vient mesurer votre bâtiment et réalise l'étude. Il n'y a ni commercial ni intermédiaire&nbsp;: vous parlez directement à la personne qui fait les calculs.</p>
+          <p>Avant de créer BETTHER à Reims, elle a mené des études thermiques et fluides au sein d'autres bureaux d'études, en logement neuf, en rénovation, en tertiaire et en froid commercial.</p>
+        </div>
+      </div>
       <ul class="cc-info">
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5c0 8.3 6.7 15 15 15 .9 0 1.7-.7 1.8-1.6l.2-2.1a1.5 1.5 0 0 0-1-1.6l-3-1a1.5 1.5 0 0 0-1.6.4l-.9 1a12 12 0 0 1-4.9-4.9l1-.9a1.5 1.5 0 0 0 .4-1.6l-1-3a1.5 1.5 0 0 0-1.6-1L4.6 3.2A1.8 1.8 0 0 0 3 5Z"/></svg></span><div><div class="l">Téléphone</div><a class="v" href="tel:+33618137645">06&nbsp;18&nbsp;13&nbsp;76&nbsp;45</a></div></li>
         <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><div><div class="l">Email</div><a class="v" href="mailto:lili.brendle@betther.tech">lili.brendle@betther.tech</a></div></li>

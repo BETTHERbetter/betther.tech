@@ -120,6 +120,13 @@ p{margin:0}
 .phero .prix-des b{color:var(--ink);font-weight:600}
 .phero .prix-des a{color:var(--accent-ink);white-space:nowrap;text-decoration:none;font-weight:600}
 .phero .prix-des a:hover{text-decoration:underline}
+.qui{display:flex;gap:18px;align-items:flex-start;margin-top:26px;padding:18px;border:1px solid var(--line);border-radius:16px;background:color-mix(in srgb,var(--surface) 70%,transparent)}
+.qui-photo{width:92px;height:92px;border-radius:50%;object-fit:cover;flex:0 0 auto;border:2px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+.qui-k{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink)}
+.qui-txt p{margin-top:8px;font-size:14.5px;line-height:1.6;color:var(--ink-soft);max-width:none}
+.qui-txt p.qui-nom{margin-top:6px;color:var(--ink);font-size:15.5px}
+.qui-txt p.qui-nom b{font-weight:600}
+@media(max-width:520px){.qui{flex-direction:column;gap:12px}.qui-photo{width:96px;height:96px}}
 .note-ref{color:var(--accent-ink);text-decoration:none;font-weight:600;margin-left:1px}
 .note-bas{margin-top:22px;font-size:13.5px;color:var(--ink-faint);border-left:2px solid var(--line-strong);padding-left:12px;scroll-margin-top:110px}
 .card-prix{margin-top:6px;font-family:var(--font-mono);font-size:12.5px;letter-spacing:.04em;color:var(--accent-ink)}
