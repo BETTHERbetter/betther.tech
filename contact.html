@@ -88,6 +88,18 @@
     <label for="n">Nom</label><input id="n" type="text" placeholder="Votre nom">
     <label for="t">Téléphone</label><input id="t" type="tel" required inputmode="tel" placeholder="06 12 34 56 78">
     <label for="e">Email</label><input id="e" type="email" required placeholder="vous@email.com">
+    <label for="src">Comment avez-vous connu BETTHER&nbsp;? <span style="font-weight:400;opacity:.7">(facultatif)</span></label><select id="src">
+              <option value="">Choisir…</option>
+              <option>Recherche Google</option>
+              <option>Google Maps</option>
+              <option>LinkedIn</option>
+              <option>Instagram ou TikTok</option>
+              <option>Un flyer dans ma boîte aux lettres</option>
+              <option>Un architecte ou un professionnel</option>
+              <option>Le bouche-à-oreille</option>
+              <option>PagesJaunes</option>
+              <option>Autre</option>
+            </select>
     <label for="m">Votre message</label><textarea id="m" placeholder="Type de bâtiment, surface, neuf ou rénovation, échéance…"></textarea>
     <button class="btn btn-accent" type="submit">Envoyer ma demande <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     <p id="ccMsgOut" hidden style="margin-top:14px;font-size:14px"></p>
@@ -133,6 +145,7 @@
         +'\nNom : '+(v('n')||'-')
         +'\nTel : '+(v('t')||'-')
         +'\nEmail : '+(v('e')||'-')
+        +(v('src')?('\nA connu BETTHER par : '+v('src')):'')
         +'\nProjet : '+(v('m')||'-');
       var out=document.getElementById('ccMsgOut');
       function stop(id,txt){ out.hidden=false; out.style.color='#ff8a5c'; out.textContent=txt; document.getElementById(id).focus(); }

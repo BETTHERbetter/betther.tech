@@ -857,9 +857,9 @@
   .cc-form{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:clamp(22px,3vw,36px);margin-top:33px}
   .cc-field{margin-bottom:15px}
   .cc-field label{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px}
-  .cc-field input,.cc-field textarea{width:100%;font-family:var(--font-body);font-size:15.5px;color:var(--ink);background:var(--ground);border:1px solid var(--line-strong);border-radius:11px;padding:13px 15px;transition:border-color .18s ease,box-shadow .18s ease}
+  .cc-field input,.cc-field textarea,.cc-field select{width:100%;font-family:var(--font-body);font-size:15.5px;color:var(--ink);background:var(--ground);border:1px solid var(--line-strong);border-radius:11px;padding:13px 15px;transition:border-color .18s ease,box-shadow .18s ease}
   .cc-field textarea{resize:vertical;min-height:118px}
-  .cc-field input:focus,.cc-field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
+  .cc-field input:focus,.cc-field textarea:focus,.cc-field select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
   .cc-row{display:grid;grid-template-columns:1fr 1fr;gap:15px}
   .cc-form .btn{width:100%;justify-content:center;margin-top:8px}
   .cc-ok{display:none;text-align:center;padding:26px 6px}
@@ -1237,6 +1237,20 @@
             <input id="wizArchi" type="text" placeholder="Nom, email ou téléphone de l'architecte">
             <label class="wiz-check wiz-check-inline" style="margin-top:10px"><input type="checkbox" id="wizArchiAuth"><span>J'autorise BETTHER à échanger directement avec mon architecte / maître d'œuvre au sujet de cette étude.</span></label>
           </div>
+          <div class="field field-full"><label for="wizSource">Comment avez-vous connu BETTHER&nbsp;? <span class="opt">(facultatif)</span></label>
+            <select id="wizSource">
+              <option value="">Choisir…</option>
+              <option>Recherche Google</option>
+              <option>Google Maps</option>
+              <option>LinkedIn</option>
+              <option>Instagram ou TikTok</option>
+              <option>Un flyer dans ma boîte aux lettres</option>
+              <option>Un architecte ou un professionnel</option>
+              <option>Le bouche-à-oreille</option>
+              <option>PagesJaunes</option>
+              <option>Autre</option>
+            </select>
+          </div>
           <p class="field-full wiz-miss" id="wizMiss" hidden></p>
           <p class="field-full wiz-req-note">Les champs marqués d’un <b>*</b> sont obligatoires.</p>
         </div>
@@ -1484,6 +1498,18 @@
           <div class="cc-field"><label for="ccTel">Téléphone</label><input id="ccTel" type="tel" required inputmode="tel" autocomplete="tel" placeholder="06 12 34 56 78"></div>
         </div>
         <div class="cc-field"><label for="ccEmail">Email</label><input id="ccEmail" type="email" required autocomplete="email" placeholder="vous@email.com"></div>
+        <div class="cc-field"><label for="ccSource">Comment avez-vous connu BETTHER&nbsp;? <span style="font-weight:400;opacity:.7">(facultatif)</span></label><select id="ccSource">
+              <option value="">Choisir…</option>
+              <option>Recherche Google</option>
+              <option>Google Maps</option>
+              <option>LinkedIn</option>
+              <option>Instagram ou TikTok</option>
+              <option>Un flyer dans ma boîte aux lettres</option>
+              <option>Un architecte ou un professionnel</option>
+              <option>Le bouche-à-oreille</option>
+              <option>PagesJaunes</option>
+              <option>Autre</option>
+            </select></div>
         <div class="cc-field"><label for="ccMsg">Votre message</label><textarea id="ccMsg" placeholder="Décrivez votre projet en quelques mots…"></textarea></div>
         <button type="submit" class="btn btn-accent">Envoyer ma demande
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -2287,6 +2313,7 @@
         +'\nContact : '+([val('wizPrenom'),val('wizNom')].filter(Boolean).join(' ')||'-')+' · '+(val('wizTel')||'-')+' · '+(val('wizEmail')||'-')
         +'\nProfil : '+(val('wizProfil')||'-')+(val('wizProfilAutre')?(' — '+val('wizProfilAutre')):'')
         +'\nArchitecte : '+(val('wizArchiSuivi')||'-')+(val('wizArchi')?(' — '+val('wizArchi')):'')+(chk('wizArchiAuth')?' (contact autorisé)':'')
+        +(val('wizSource')?('\nA connu BETTHER par : '+val('wizSource')):'')
         +'\nCommentaires : '+(val('wizComm')||'-')
         +'\nDocuments : '+(answers.files.length?answers.files.join(', '):'à transmettre');
       var sujet='Demande de devis'+((val('wizPrenom')||val('wizNom'))?(' — '+[val('wizPrenom'),val('wizNom')].filter(Boolean).join(' ')):'')+((p&&p.name)?(' ('+p.name+')'):'');
@@ -2623,6 +2650,7 @@
         +'\nNom : '+(nom||'-')
         +'\nTel : '+(tel||'-')
         +'\nEmail : '+email
+        +(val('ccSource')?('\nA connu BETTHER par : '+val('ccSource')):'')
         +'\nMessage : '+(msg||'-');
       var btn=form.querySelector('button[type=submit]'), err=document.getElementById('ccErr');
       if(err) err.hidden=true; if(btn) btn.disabled=true;
