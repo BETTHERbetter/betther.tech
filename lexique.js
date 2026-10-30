@@ -1,3 +1,9 @@
+/* Offre de lancement : la mention disparaît d'elle-même à partir du 2 janvier 2027. */
+(function(){
+  if(Date.now() < new Date(2027,0,2).getTime()) return;
+  function retirer(){ var l=document.querySelectorAll('.promo-lancement'); for(var i=0;i<l.length;i++) l[i].parentNode.removeChild(l[i]); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',retirer); else retirer();
+})();
 /* Arrivée en haut de page : on ne reprend jamais la position précédente. */
 (function(){
   try{ if('scrollRestoration' in history) history.scrollRestoration='manual'; }catch(e){}
