@@ -15,4 +15,22 @@
   <url><loc>https://betther.tech/etude-re2020-copropriete-neuve.html</loc><lastmod>2026-11-11</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
   <url><loc>https://betther.tech/etude-reseaux-plomberie.html</loc><lastmod>2026-11-11</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
   <url><loc>https://betther.tech/etude-installation-frigorifique-supermarche.html</loc><lastmod>2026-11-11</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url>
+    <loc>https://betther.tech/mentions-legales.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://betther.tech/cgv.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://betther.tech/confidentialite.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
 </urlset>
