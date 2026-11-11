@@ -409,3 +409,7 @@ footer{background:var(--ground);border-top:1px solid var(--line);padding:40px 0 
 .foot-nav a{font-size:13.5px;color:var(--ink-soft);text-decoration:none}
 .foot-nav a:hover{color:var(--accent-ink)}
 .devis-rapide h2{margin:12px 0 14px}
+.foot-social{margin-top:16px;display:flex;gap:14px}
+.foot-social a{display:inline-flex;width:36px;height:36px;align-items:center;justify-content:center;border:1px solid var(--line-strong);border-radius:50%;color:var(--ink-soft);transition:color .2s ease,border-color .2s ease}
+.foot-social a:hover{color:var(--accent-ink);border-color:var(--accent-ink)}
+.foot-social svg{width:17px;height:17px}
