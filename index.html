@@ -511,6 +511,9 @@
   .missions .sec-head h2 em{font-style:normal;color:var(--accent-ink)}
   .missions .sec-head .sub{max-width:56ch}
   .miss-bio{position:relative;display:flex;align-items:center;justify-content:space-between;gap:18px 28px;flex-wrap:wrap;margin-top:22px;padding:20px 26px;border-radius:20px;border:1px solid color-mix(in srgb,rgb(255,106,51) 24%,var(--line));background:linear-gradient(90deg,color-mix(in srgb,rgb(255,106,51) 7%,var(--surface)),var(--surface));color:var(--ink-soft);text-decoration:none;font-size:15px;transition:border-color .25s ease,transform .25s ease}
+  .miss-more{margin-top:18px;font-size:14.5px;color:var(--ink-soft);text-align:center}
+  .miss-more a{color:var(--accent-ink);font-weight:600;text-decoration:none}
+  .miss-more a:hover{text-decoration:underline}
   .miss-bio:hover{border-color:color-mix(in srgb,rgb(255,106,51) 50%,var(--line));transform:translateY(-3px)}
   .miss-bio b{color:var(--ink);font-weight:600}
   .miss-bio .mb-txt{flex:1 1 420px}
@@ -880,6 +883,9 @@
   .foot-legal{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);display:flex;gap:24px;flex-wrap:wrap}
   .foot-legal a{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);text-decoration:none;transition:color .2s ease}
   .foot-legal a:hover{color:var(--accent-ink)}
+  .foot-nav{margin-top:18px;display:flex;gap:10px 20px;flex-wrap:wrap}
+  .foot-nav a{font-size:13.5px;color:var(--ink-soft);text-decoration:none}
+  .foot-nav a:hover{color:var(--accent-ink)}
   .note{max-width:1240px;margin:0 auto;padding:20px 28px 0;color:var(--ink-faint);font-size:13px;position:relative;z-index:2}
   /* ===== PAGES DE DÉTAIL PROJET ===== */
   .pdetail{position:fixed;inset:0;z-index:120;overflow-y:auto;background:var(--ground);color:var(--ink);display:none}
@@ -1004,9 +1010,11 @@
     <div class="nav-drop">
       <button class="nav-drop-t" type="button" aria-expanded="false">Nos prestations<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="nav-drop-m">
+        <a href="bureau-etude-thermique-reims.html">Bureau d'études à Reims</a>
         <a href="construction-neuve.html">Construction neuve</a>
         <a href="renovation.html">Rénovation</a>
         <a href="fluides.html">Fluides</a>
+        <a href="dimensionnement-chauffage-ventilation.html">Chauffage, PAC et ventilation</a>
         <a href="construire-biosource.html">Construire en biosourcé</a>
       </div>
     </div>
@@ -1021,7 +1029,7 @@
 <section class="hero thermbg">
   <div class="hero-blobs" aria-hidden="true"></div>
   <div class="wrap hero-inner">
-    <h1 class="sr-only">BETTHER — Bureau d'études thermiques en construction et rénovation&nbsp;: RE2020, audit énergétique, dimensionnement des fluides. Reims et Grand Est.</h1>
+    <h1 class="sr-only">Bureau d'études thermiques et fluides à Reims : étude RE2020, audit énergétique et dimensionnement CVC</h1>
     <div class="hero-logo-wrap">
     <img class="hero-logo" width="1360" height="455" fetchpriority="high" src="media/logo-betther.png" alt="BETTHER — Bureau d'études thermiques">
       <span class="logo-flash" aria-hidden="true"></span>
@@ -1377,11 +1385,11 @@
 
       <div class="story-visual">
         <div class="viz" id="viz">
-          <img class="layer l0" width="1040" height="817" decoding="async" src="media/parcours-0.jpg" alt="Maison en coupe, état initial.">
-          <img class="layer l1" id="l1" width="1040" height="817" decoding="async" fetchpriority="low" src="media/parcours-1.jpg" alt="" aria-hidden="true">
-          <img class="layer l2" id="l2" width="1040" height="817" decoding="async" fetchpriority="low" src="media/parcours-2.jpg" alt="" aria-hidden="true">
-          <img class="layer l3" id="l3" width="1040" height="817" decoding="async" fetchpriority="low" src="media/parcours-3.jpg" alt="" aria-hidden="true">
-          <img class="layer l4" id="l4" width="1040" height="817" decoding="async" fetchpriority="low" src="media/parcours-4.jpg" alt="" aria-hidden="true">
+          <img class="layer l0" width="1040" height="817" loading="lazy" decoding="async" src="media/parcours-0.webp" alt="Maison en coupe, état initial : murs non isolés, déperditions.">
+          <img class="layer l1" id="l1" width="1040" height="817" loading="lazy" decoding="async" fetchpriority="low" src="media/parcours-1.webp" alt="Maison en coupe après isolation des murs, de la toiture et des planchers.">
+          <img class="layer l2" id="l2" width="1040" height="817" loading="lazy" decoding="async" fetchpriority="low" src="media/parcours-2.webp" alt="Maison en coupe avec une VMC double flux.">
+          <img class="layer l3" id="l3" width="1040" height="817" loading="lazy" decoding="async" fetchpriority="low" src="media/parcours-3.webp" alt="Maison en coupe avec pompe à chaleur air/eau, plancher chauffant et ballon d'eau chaude.">
+          <img class="layer l4" id="l4" width="1040" height="817" loading="lazy" decoding="async" fetchpriority="low" src="media/parcours-4.webp" alt="Maison en coupe avec panneaux solaires photovoltaïques et thermiques en toiture.">
           <div class="sweep" id="sweep"></div>
           <div class="viz-badge" id="badge">État initial</div>
         </div>
@@ -1461,6 +1469,7 @@
       <span class="mb-txt"><b>Vous construisez en chanvre ou en bois&nbsp;?</b> Nous intégrons vos matériaux biosourcés dans l’étude RE2020 et l’ACV, avec leurs vraies données environnementales.</span>
       <span class="mb-go">Construire en biosourcé <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </a>
+    <p class="miss-more">Voir aussi&nbsp;: <a href="bureau-etude-thermique-reims.html">notre bureau d'études thermiques à Reims</a> · <a href="dimensionnement-chauffage-ventilation.html">le dimensionnement du chauffage, de la PAC et de la ventilation</a>.</p>
   </div>
 </section>
 
@@ -1799,6 +1808,7 @@
     <span>Bases principales&nbsp;: Reims et Grand Est · 06&nbsp;18&nbsp;13&nbsp;76&nbsp;45</span>
     <span>© <span id="yr"></span> BETTHER</span>
   </div>
+  <nav class="wrap foot-nav" aria-label="Prestations"><a href="bureau-etude-thermique-reims.html">Bureau d'études thermiques à Reims</a><a href="construction-neuve.html">Étude RE2020</a><a href="renovation.html">Audit énergétique</a><a href="fluides.html">Bureau d'études fluides</a><a href="dimensionnement-chauffage-ventilation.html">Chauffage, PAC et VMC</a><a href="construire-biosource.html">Biosourcé</a><a href="realisations.html">Réalisations</a><a href="contact.html">Contact</a></nav>
   <div class="wrap foot-legal">
     <a href="#legal-mentions">Mentions légales</a>
     <a href="#legal-cgv">CGV</a>
@@ -1831,9 +1841,31 @@
       "identifier": "SIRET 10951714400019",
       "foundingDate": "2026-09-23",
       "image": "https://betther.tech/og-image-v2.png",
-      "logo": "https://betther.tech/og-image-v2.png",
+      "logo": "https://betther.tech/media/logo-betther.png",
+      "priceRange": "€€",
+      "sameAs": [
+        "https://www.linkedin.com/company/145283071/",
+        "https://portfolio.betther.tech/"
+      ],
       "founder": { "@type": "Person", "name": "Lili Brendlé" },
-      "areaServed": ["Reims", "Paris", "Strasbourg", "Colmar", "Besançon", "Lons-le-Saunier", "Fontainebleau", "Gap", "Marseille"],
+      "areaServed": [
+        { "@type": "City", "name": "Reims" },
+        { "@type": "AdministrativeArea", "name": "Marne" },
+        { "@type": "AdministrativeArea", "name": "Ardennes" },
+        { "@type": "AdministrativeArea", "name": "Grand Est" },
+        { "@type": "City", "name": "Paris" }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Études thermiques et fluides",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Étude thermique RE2020", "url": "https://betther.tech/construction-neuve.html" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Audit énergétique volontaire et bilan thermique", "url": "https://betther.tech/renovation.html" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bureau d'études fluides : CVC et plomberie", "url": "https://betther.tech/fluides.html" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Dimensionnement chauffage, pompe à chaleur et ventilation", "url": "https://betther.tech/dimensionnement-chauffage-ventilation.html" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Étude thermique de construction biosourcée", "url": "https://betther.tech/construire-biosource.html" } }
+        ]
+      },
       "knowsAbout": ["Étude thermique", "RE2020", "Calcul Bbio", "Calcul Cep", "Audit énergétique", "Bilan thermique", "Étude de ventilation", "Analyse du cycle de vie (ACV)", "Dimensionnement des fluides", "CVC", "Plomberie"]
     },
     {
