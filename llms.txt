@@ -13,7 +13,7 @@ BETTHER ne réalise ni DPE ni audit énergétique réglementaire : ses audits so
 - [Rénovation : audit énergétique volontaire et bilan thermique](https://betther.tech/renovation.html) : bilan dès 290 € HT, audit dès 590 € HT.
 - [Bureau d'études fluides](https://betther.tech/fluides.html) : chauffage, CVC, ventilation, eau chaude sanitaire, plomberie, plans 2D, CCTP et DPGF.
 - [Dimensionnement chauffage, PAC et ventilation](https://betther.tech/dimensionnement-chauffage-ventilation.html) : déperditions pièce par pièce (NF EN 12831), puissance de pompe à chaleur, émetteurs, VMC.
-- [Simulation thermique dynamique (STD)](https://betther.tech/simulation-thermique-dynamique.html) : simulation heure par heure, confort d'été, besoins et puissances, comparaison de variantes, en neuf et en rénovation.
+- [Simulation thermique dynamique (STD)](https://betther.tech/simulation-thermique-dynamique.html) : simulation heure par heure, confort d'été, besoins et puissances, comparaison de variantes, en neuf et en rénovation, dès 890 € HT.
 - [Construire en biosourcé](https://betther.tech/construire-biosource.html) : béton et laine de chanvre, bois, confort d'été dans l'étude RE2020.
 
 ## Exemples d'études (expériences précédentes)
