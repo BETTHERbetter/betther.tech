@@ -16,6 +16,11 @@ BETTHER ne réalise ni DPE ni audit énergétique réglementaire : ses audits so
 - [Simulation thermique dynamique (STD)](https://betther.tech/simulation-thermique-dynamique.html) : simulation heure par heure, confort d'été, besoins et puissances, comparaison de variantes, en neuf et en rénovation, dès 890 € HT.
 - [Construire en biosourcé](https://betther.tech/construire-biosource.html) : béton et laine de chanvre, bois, confort d'été dans l'étude RE2020.
 
+## Études BETTHER
+
+- [Rénovation d'une petite maison en pierre vers la classe B](https://betther.tech/etude-renovation-petite-maison-pierre.html)
+- [Rénovation énergétique d'un studio parisien classé F](https://betther.tech/etude-renovation-studio-paris.html)
+
 ## Exemples d'études (expériences précédentes)
 
 - [Réalisations](https://betther.tech/realisations.html)
